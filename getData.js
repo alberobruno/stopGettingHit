@@ -1,5 +1,6 @@
 //Run command in terminal:
 //node script.js
+const { moves } = require('@slippi/slippi-js');
 
 const { SlippiGame } = require('@slippi/slippi-js');
 const fs = require('fs');
@@ -67,3 +68,10 @@ const hitStates = new Set([25, 32, '32', '0032']);
 //   }
 // }
 // console.log(rawData.settings.players);
+
+const moveCache = {};
+for (let i = 0; i < 400; i++) {
+  moveCache[i] = moves.getMoveName(i);
+}
+
+console.log(moveCache);
