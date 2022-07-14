@@ -5,32 +5,36 @@ import axios from 'axios';
 import List from './List';
 
 const App = () => {
-  const [open, setOpen] = useState(false);
+  //Set State
+  const [data, setData] = useState();
+  // const [open, setOpen] = useState(false);
 
-  const test = () => {
-    setOpen(!open);
-    console.log(open);
-  };
-
+  //Fetch matches table from backend
   useEffect(() => {
     const fetchData = async () => {
       const axiosGet = await axios.get('/getMatches');
-      console.log(axiosGet);
-      return axiosGet;
+      setData(axiosGet.data);
+      console.log('Fetched DB: ', axiosGet.data);
     };
-    const data = fetchData();
-  });
+    const database = fetchData();
+  }, []);
 
-  return (
-    <div>
-      <h1 className="text-center mt-5">Stop Getting Hit</h1>
-      <div id="list">
-        {open && <p>Hello</p>}
-        <button onClick={() => test()}>Hello</button>
-        <List />
+  // const test = () => {
+  //   setOpen(!open);
+  // };
+
+  if (data) {
+    return (
+      <div>
+        <h1 className="text-center mt-5">Stop Getting Hit</h1>
+        <div id="list">
+          {/* <button onClick={() => test()}>Hello</button>
+        {open && <p>Hello</p>} */}
+          <List data={data} />
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 export default App;
