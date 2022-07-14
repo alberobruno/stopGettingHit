@@ -24,9 +24,10 @@ controller.getMatches = async (req, res, next) => {
 controller.addMatches = async (req, res, next) => {
   try {
     //DOES NOT WORK IF rawData INCLUDES FRAMES
-    const newMatch = req.body.settings.players; //This should be parsed a match JSON (i.e. rawData.txt)
+    //This should be parsed a match JSON (i.e. rawData.txt)
+    const newMatch = req.body.settings.players;
     const query = `INSERT INTO matches (player1, player2, data)
-      VALUES ('${newMatch[0].displayName}', '${
+    VALUES ('${newMatch[0].displayName}', '${
       newMatch[1].displayName
     }', '${JSON.stringify(req.body)}');`;
     const result = await db.query(query);

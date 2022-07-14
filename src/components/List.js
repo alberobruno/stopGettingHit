@@ -5,20 +5,20 @@ import Items from './Items';
 
 const List = function (props) {
   //Make sure I have access to data
-  const { data } = props;
-  console.log('List Props data: ', data);
+  const { data, setData } = props;
+  //   console.log('List Props data: ', data);
 
   //For each body, loop through data and populate
   const rows = [];
 
   for (let i = 0; i < data.length; i++) {
-    rows.push(<Items data={data[i]} key={i} />);
+    rows.push(<Items data={data[i]} setData={setData} key={i} />);
   }
   return (
     <div
       style={{ display: 'flex', justifyContent: 'center', marginTop: '100px' }}
     >
-      <div id="listComponent" style={{ width: '1000px' }}>
+      <div id="listComponent" style={{ width: '600px', textAlign: 'center' }}>
         <table className="table table-hover">
           <thead>
             <tr>
