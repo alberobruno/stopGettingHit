@@ -2,14 +2,26 @@
 const path = require('path');
 const express = require('express');
 const router = require('./router');
+const controllers = require('./controllers');
+
+// const bodyParser = require('body-parser');
 // const cors = require('cors');
 
 const app = express();
 const PORT = 3000;
 
 //----------Middleware----------
+// app.use(bodyParser.json({ limit: '100mb' }));
+// app.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
+// app.use(express.json());
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// app.get('/getDbData', controllers.getMatches, (req, res) => {
+//   res.status(200).send(res.locals.matchData);
+// });
+
 app.use('/', router);
 
 //----------//----------Requested Page Not Found Error----------

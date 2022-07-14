@@ -23,8 +23,8 @@ rawData['stats'] = stats;
 // Get frames – animation state, inputs, etc
 // This is used to compute your own stats or get more frame-specific info (advanced)
 const frames = game.getFrames();
+// rawData['frames'] = frames;
 // console.log(frames[0].players); // Print frame when timer starts counting down
-rawData['frames'] = frames;
 
 fs.writeFile('rawData.txt', JSON.stringify(rawData), () =>
   console.log('Data saved')
@@ -52,18 +52,18 @@ const players = {
 
 const hitStates = new Set([25, 32, '32', '0032']);
 
-for (let player in rawData.settings.players) {
-  rawData.settings.players[player]['hitDuring'] = {};
-  for (let frame in frames) {
-    // if (
-    //   hitStates.has(frames[frame].players[player].pre.actionStateId) &&
-    //   frame > 0
-    // ) {
-    //   console.log('dashAttacked');
-    //   rawData.settings.players[player]['hitDuring'][frame] = 'dashAttacked';
-    // }
-    if (frame < 100)
-      console.log('state: ', frames[frame].players[player].pre.actionStateId);
-  }
-}
-console.log(rawData.settings.players);
+// for (let player in rawData.settings.players) {
+//   rawData.settings.players[player]['hitDuring'] = {};
+//   for (let frame in frames) {
+//     // if (
+//     //   hitStates.has(frames[frame].players[player].pre.actionStateId) &&
+//     //   frame > 0
+//     // ) {
+//     //   console.log('dashAttacked');
+//     //   rawData.settings.players[player]['hitDuring'][frame] = 'dashAttacked';
+//     // }
+//     if (frame < 100)
+//       console.log('state: ', frames[frame].players[player].pre.actionStateId);
+//   }
+// }
+// console.log(rawData.settings.players);

@@ -4,21 +4,21 @@ const controllers = require('./controllers');
 const router = express.Router();
 
 //----------Routers to Controllers----------
-router.get('/get', controllers.getMatches, (req, res) =>
-  res.status(200).json(res.locals.getMatches)
+router.get('/getMatches', controllers.getMatches, (req, res) =>
+  res.status(200).json(res.locals.matchData)
 );
 
-// router.post('/upload', controllers.addMatches, (req, res) =>
-//   res.status(200).json({})
-// );
+router.post('/upload', controllers.addMatches, (req, res) =>
+  res.status(200).json({})
+);
 
-// router.put('/update', controllers.updateMatches, (req, res) =>
-//   res.status(200).json({})
-// );
+router.put('/update/:id', controllers.updateMatches, (req, res) =>
+  res.status(200).json({})
+);
 
-// router.delete('/delete', controllers.deleteMatches, (req, res) =>
-//   res.status(200).json({})
-// );
+router.delete('/delete/:id', controllers.deleteMatches, (req, res) =>
+  res.status(200).json({})
+);
 
 //----------Export----------
 module.exports = router;
