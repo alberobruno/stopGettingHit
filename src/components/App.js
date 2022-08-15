@@ -34,12 +34,15 @@ const App = () => {
         const axiosPost = await axios.post('/upload', json);
         const axiosGet = await axios.get('/getMatches');
         setData(axiosGet.data);
+        document.getElementById('uploadInput').value = '';
       };
       const grab = fetchData();
     } catch (e) {
       console.log('Invalid input: Must be JSON');
     }
   };
+
+  const reloadPage = () => window.location.reload();
 
   if (data) {
     return (
@@ -52,6 +55,20 @@ const App = () => {
             className="mt-5"
             style={{ display: 'flex', justifyContent: 'center' }}
           >
+            <div
+              id="dropzone"
+              onDrop={dropHandler(event)}
+              onDragOver={dragOverHandler(event)}
+              style={{
+                border: '5px solid blue',
+                width: '200px',
+                height: '100px',
+              }}
+            >
+              <p>
+                Drag one or more files to this <i>drop zone</i>.
+              </p>
+            </div>
             <input
               type="text"
               style={{
@@ -63,6 +80,12 @@ const App = () => {
             />
             <button className="btn btn-success ml-2" onClick={() => upload()}>
               Upload Match JSON
+            </button>
+            <button
+              className="btn btn-success ml-2 mt-2"
+              onClick={() => reloadPage()}
+            >
+              Reload Page
             </button>
           </div>
           <List data={data} setData={setData} />

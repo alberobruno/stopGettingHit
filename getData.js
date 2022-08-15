@@ -24,7 +24,7 @@ rawData['stats'] = stats;
 // Get frames – animation state, inputs, etc
 // This is used to compute your own stats or get more frame-specific info (advanced)
 const frames = game.getFrames();
-// rawData['frames'] = frames;
+// rawData['frames'] = frames; //Application breaks if we include this line, JSON becomes too big
 // console.log(frames[0].players); // Print frame when timer starts counting down
 
 fs.writeFile('rawData.txt', JSON.stringify(rawData), () =>
@@ -35,24 +35,7 @@ fs.writeFile('rawData.txt', JSON.stringify(rawData), () =>
 // console.log(settings.players[1].displayName);
 // console.log(settings);
 // console.log(rawData.frames[0]);
-
-const players = {
-  playersIndex: {
-    playerId: 123456,
-    playerDisplay: 'Robnu',
-    hitDuring: {
-      currentFrame: {
-        hitOutOf: 'x',
-        hitBy: 'y',
-      },
-    },
-  },
-};
-
 // console.log(settings.players[0]);
-
-const hitStates = new Set([25, 32, '32', '0032']);
-
 // for (let player in rawData.settings.players) {
 //   rawData.settings.players[player]['hitDuring'] = {};
 //   for (let frame in frames) {
@@ -69,9 +52,9 @@ const hitStates = new Set([25, 32, '32', '0032']);
 // }
 // console.log(rawData.settings.players);
 
-const moveCache = {};
-for (let i = 0; i < 400; i++) {
-  moveCache[i] = moves.getMoveName(i);
-}
+// const moveCache = {};
+// for (let i = 0; i < 100; i++) {
+//   moveCache[i] = moves.getMoveName(i);
+// }
 
-console.log(moveCache);
+// console.log(moveCache);

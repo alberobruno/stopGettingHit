@@ -68,8 +68,9 @@ controller.deleteMatches = async (req, res, next) => {
     //Expecting put request to delete/"id"
     const id = req.params.id;
 
-    let query = `DELETE FROM matches WHERE id='${id}';`;
-    let result = await db.query(query);
+    //let query = `DELETE FROM matches WHERE id='${id}';`;
+    let query = 'DELETE FROM matches WHERE id=$1';
+    let result = await db.query(query, [id]);
     next();
   } catch (err) {
     next({

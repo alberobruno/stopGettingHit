@@ -27,6 +27,7 @@ const Items = function (props) {
     const listOfMovesP2 = [];
     const conversions = data.data.stats.conversions;
     console.log(conversions[0].moves[0].moveId);
+    //Long list of moveId names
     const masterMoves = {
       0: 'Unknown Move',
       1: 'Miscellaneous',
@@ -159,8 +160,8 @@ const Items = function (props) {
     myDiv.style.textAlign = 'center';
     myDiv.innerHTML = `
     <h5>Analyzing match id: ${id}... where did we lose neutral?</h5>
-    <p>Player1 (${player1}) should stop getting hit by [${listOfMovesP1}]\n</p>
-    <p>Player2 (${player2}) should stop getting hit by [${listOfMovesP2}]\n</p>`;
+    <p>Player1 (${player1}) should stop getting hit by </p><p>[${listOfMovesP1}]\n</p>
+    <p>Player2 (${player2}) should stop getting hit by </p><p>[${listOfMovesP2}]\n</p>`;
     document.body.appendChild(myDiv);
     console.log(`Analyzing match id: ${id}`);
   };
