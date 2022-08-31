@@ -2,7 +2,10 @@
 const path = require('path');
 const express = require('express');
 const router = require('./router');
-const cors = require('cors');
+const controllers = require('./controllers');
+
+// const bodyParser = require('body-parser');
+// const cors = require('cors');
 
 const app = express();
 const PORT = 3000;
@@ -10,6 +13,8 @@ const PORT = 3000;
 //----------Middleware----------
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use('/', router);
 
 //----------//----------Requested Page Not Found Error----------
 app.use((req, res) => res.status(404).send('Page not found'));
