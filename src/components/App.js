@@ -18,12 +18,6 @@ const App = () => {
     const grab = fetchData();
   }, []);
 
-  //React Tests - Please Ignore
-  // const [open, setOpen] = useState(false);
-  // const test = () => {
-  //   setOpen(!open);
-  // };
-
   //Upload Button Functionality
   const upload = async () => {
     const inputData = $('#uploadInput')[0].value;
@@ -42,8 +36,10 @@ const App = () => {
     }
   };
 
+  //Reload Button Functionality
   const reloadPage = () => window.location.reload();
 
+  //If data exists - render the page
   if (data) {
     return (
       <div>
@@ -57,8 +53,8 @@ const App = () => {
           >
             <div
               id="dropzone"
-              onDrop={dropHandler(event)}
-              onDragOver={dragOverHandler(event)}
+              // onDrop={dropHandler(event)}
+              // onDragOver={dragOverHandler(event)}
               style={{
                 border: '5px solid blue',
                 width: '200px',
