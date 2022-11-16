@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
 //Components
-import Items from './Items';
+import Items from "./Items";
 
 const List = function (props) {
   //Make sure I have access to data
@@ -15,10 +15,8 @@ const List = function (props) {
     rows.push(<Items data={data[i]} setData={setData} key={i} />);
   }
   return (
-    <div
-      style={{ display: 'flex', justifyContent: 'center', marginTop: '100px' }}
-    >
-      <div id="listComponent" style={{ width: '600px', textAlign: 'center' }}>
+    <div className="list">
+      <div id="listComponent">
         <table className="table table-hover">
           <thead>
             <tr>

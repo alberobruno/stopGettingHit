@@ -1,0 +1,39 @@
+
+
+  #dropbox {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+  }
+  #dropzone {
+    border: 5px dotted red;
+    width: 400px;
+    height: 100px;
+    align-content: center;
+    border-radius: 10px;
+    /* display: block; */
+  }
+
+
+
+  #uploadInput {
+    width: 700px;
+    border: 2px solid rgb(222, 226, 230);
+    border-radius: 6px;
+  }
+
+  #JSONinput {
+    display: flex;
+    justify-content: center;
+  }
+
+  .list {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+  }
+
+  #listComponent {
+    width: 600px;
+    text-align: center;
+  }
