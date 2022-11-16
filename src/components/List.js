@@ -4,9 +4,8 @@ import React, { useEffect, useState } from "react";
 import Items from "./Items";
 
 const List = function (props) {
-  //Make sure I have access to data
+  //Make sure we have access to data
   const { data, setData } = props;
-  //   console.log('List Props data: ', data);
 
   //For each body, loop through data and populate
   const rows = [];

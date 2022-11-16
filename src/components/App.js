@@ -1,3 +1,8 @@
+/**
+ * @param {File} file
+ * @param {HTMLElement} dropzoneElement
+ */
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -5,7 +10,6 @@ import axios from "axios";
 import List from "./List";
 
 const App = () => {
-  //Set State
   const [data, setData] = useState();
 
   //Fetch matches table from backend
@@ -13,10 +17,69 @@ const App = () => {
     const fetchData = async () => {
       const axiosGet = await axios.get("/getMatches");
       setData(axiosGet.data);
-      console.log("Fetched DB: ", axiosGet.data);
     };
     const grab = fetchData();
   }, []);
+
+  //Dropzone Box Functionality
+  const dropHandler = (e) => {
+    e.preventDefault();
+    document.querySelectorAll(".dropzone--input").forEach((inputElement) => {
+      const dropzoneEl = inputElement.closest(".dropzone");
+      if (e.dataTransfer.files.length) {
+        inputElement.files = e.dataTransfer.files;
+        updateThumbnail(dropzoneEl, e.dataTransfer.files[0]);
+      }
+    });
+    dragOverEnd();
+  };
+  const dropClick = (e) => {
+    document.querySelectorAll(".dropzone--input").forEach((inputElement) => {
+      const dropzoneEl = inputElement.closest(".dropzone");
+      inputElement.addEventListener("change", (e) => {
+        if (inputElement.files.length) {
+          updateThumbnail(dropzoneEl, inputElement.files[0]);
+        }
+      });
+      inputElement.click();
+    });
+  };
+  const dragOverHandler = (e) => {
+    e.preventDefault();
+    document.querySelectorAll(".dropzone--input").forEach((inputElement) => {
+      const dropzoneEl = inputElement.closest(".dropzone");
+      dropzoneEl.classList.add("dropzone--over");
+    });
+  };
+  const dragOverEnd = () => {
+    document.querySelectorAll(".dropzone--input").forEach((inputElement) => {
+      const dropzoneEl = inputElement.closest(".dropzone");
+      dropzoneEl.classList.remove("dropzone--over");
+    });
+  };
+
+  const updateThumbnail = (dropzoneEl, file) => {
+    let thumbnailEl = dropzoneEl.querySelector(".dropzone--thumbnail");
+
+    if (dropzoneEl.querySelector(".dropzone--prompt")) {
+      dropzoneEl.querySelector(".dropzone--prompt").remove();
+    }
+    if (!thumbnailEl) {
+      thumbnailEl = document.createElement("div");
+      thumbnailEl.classList.add("dropzone--thumbnail");
+      dropzoneEl.appendChild(thumbnailEl);
+    }
+
+    thumbnailEl.dataset.label = file.name;
+
+    if (file.type.startsWith("image/")) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        thumbnailEl.style.backgroundImage = `url('${reader.result}')`;
+      };
+    } else thumbnailEl.style.backgroundImage = null;
+  };
 
   //Upload Button Functionality
   const upload = async () => {
@@ -45,18 +108,28 @@ const App = () => {
       <div>
         <h1 className="text-center mt-5">Stop Getting Hit</h1>
         <div id="list">
-          {/* <button onClick={() => test()}>Hello</button>
-          {open && <p>Hello</p>} */}
-          <div id="dropbox">
-            <div
-              id="dropzone"
-              // onDrop={dropHandler(event)}
-              // onDragOver={dragOverHandler(event)}
-            >
-              <p>
-                Drag one or more files to this <i>drop zone</i>.
-              </p>
-            </div>
+          <div className="dropbox" id="dropbox">
+            <form action="">
+              <div
+                className="dropzone"
+                id="dropzone"
+                onClick={(e) => dropClick(e)}
+                onDrop={(e) => dropHandler(e)}
+                onDragOver={(e) => dragOverHandler(e)}
+                onDragEnd={() => dragOverEnd()}
+                onDragLeave={() => dragOverEnd()}
+              >
+                <span className="dropzone--prompt">
+                  Drop SLP here or click to upload.
+                </span>
+                <input
+                  type="file"
+                  name="myFile"
+                  className="dropzone--input"
+                  multiple
+                />
+              </div>
+            </form>
           </div>
 
           <div className="mt-5" id="JSONinput">

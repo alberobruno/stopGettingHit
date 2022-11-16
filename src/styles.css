@@ -1,20 +1,56 @@
 
 
-  #dropbox {
+  .dropbox {
     display: flex;
     justify-content: center;
     margin-top: 50px;
   }
-  #dropzone {
-    border: 5px dotted red;
+  .dropzone {
+    border: 5px dashed red;
     width: 400px;
-    height: 100px;
+    height: 200px;
+    display: flex;
     align-content: center;
+    justify-content: center;
+    text-align: center;
     border-radius: 10px;
-    /* display: block; */
+    padding: 25px;
+    font-family: 'Quicksand', sans-serif;
+    cursor: pointer;
+    color: #a5a5a5;
+    font-weight: 500;
   }
 
+  .dropzone--over {
+    border: 5px solid green;
+  }
 
+  .dropzone--thumbnail {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #a5a5a5;
+    background-size: cover;
+    position: relative;
+  }
+
+  .dropzone--thumbnail::after {
+    content: attr(data-label);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 5px 0;
+    color: white;
+    background-color: rgba(0, 0, 0, .75);
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .dropzone--input {
+    display: none;
+  }
 
   #uploadInput {
     width: 700px;
