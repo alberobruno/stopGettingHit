@@ -1,15 +1,14 @@
 //----------Initial Setup----------
-const db = require('./models');
+const db = require("./models");
 const controller = {};
 
 //----------Read Matches----------
 controller.getMatches = async (req, res, next) => {
   try {
-    console.log('Trying to get matches!');
-    const query = 'SELECT * FROM matches';
+    console.log("Trying to get matches!");
+    const query = "SELECT * FROM matches";
     const result = await db.query(query);
     res.locals.matchData = result.rows;
-    // console.log(res.locals.getMatches);
     next();
   } catch (err) {
     next({
@@ -23,7 +22,7 @@ controller.getMatches = async (req, res, next) => {
 //----------Create Matches----------
 controller.addMatches = async (req, res, next) => {
   try {
-    //DOES NOT WORK IF rawData INCLUDES FRAMES
+    //DOES NOT WORK IF rawData INCLUDES FRAMES (TOO MUCH DATA)
     //This should be parsed a match JSON (i.e. rawData.txt)
     const newMatch = req.body.settings.players;
     const query = `INSERT INTO matches (player1, player2, data)
@@ -69,7 +68,7 @@ controller.deleteMatches = async (req, res, next) => {
     const id = req.params.id;
 
     //let query = `DELETE FROM matches WHERE id='${id}';`;
-    let query = 'DELETE FROM matches WHERE id=$1';
+    let query = "DELETE FROM matches WHERE id=$1";
     let result = await db.query(query, [id]);
     next();
   } catch (err) {

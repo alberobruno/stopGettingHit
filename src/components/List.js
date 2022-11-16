@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 
-//Components
+//----------Components----------
 import Items from "./Items";
 
 const List = function (props) {
-  //Make sure we have access to data
+  //----------Make sure we have access to data----------
   const { data, setData } = props;
 
-  //For each body, loop through data and populate
+  //----------For each body, loop through data and populate----------
   const rows = [];
 
   for (let i = 0; i < data.length; i++) {

@@ -6,13 +6,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-//Components
+//----------Components----------
 import List from "./List";
 
 const App = () => {
   const [data, setData] = useState();
 
-  //Fetch matches table from backend
+  //----------Fetch matches table from backend----------
   useEffect(() => {
     const fetchData = async () => {
       const axiosGet = await axios.get("/getMatches");
@@ -21,7 +21,7 @@ const App = () => {
     const grab = fetchData();
   }, []);
 
-  //Dropzone Box Functionality
+  //----------Dropzone Box Functionality----------
   const dropHandler = (e) => {
     e.preventDefault();
     document.querySelectorAll(".dropzone--input").forEach((inputElement) => {
@@ -81,7 +81,7 @@ const App = () => {
     } else thumbnailEl.style.backgroundImage = null;
   };
 
-  //Upload Button Functionality
+  //----------Upload Button Functionality----------
   const upload = async () => {
     const inputData = $("#uploadInput")[0].value;
     try {
@@ -99,14 +99,25 @@ const App = () => {
     }
   };
 
-  //Reload Button Functionality
+  //----------Reload Button Functionality----------
   const reloadPage = () => window.location.reload();
 
-  //If data exists - render the page
+  //----------If data exists - render the page----------
   if (data) {
     return (
       <div>
         <h1 className="text-center mt-5">Stop Getting Hit</h1>
+        {/* Testing form -----------*/}
+        <form
+          action="http://localhost:9001/upload"
+          method="post"
+          encType="multipart/form-data"
+        >
+          <input type="file" name="fileupload" />
+          <br />
+          <input type="submit" />
+        </form>
+        {/* Testing form -----------*/}
         <div id="list">
           <div className="dropbox" id="dropbox">
             <form action="">

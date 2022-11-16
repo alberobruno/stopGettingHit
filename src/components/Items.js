@@ -3,11 +3,11 @@ import axios from "axios";
 import masterMoves from "./masterMoves";
 
 const Items = function (props) {
-  //Make sure I have access to data
+  //----------Make sure we have access to data----------
   const { data, setData } = props;
   const { id, player1, player2 } = data;
 
-  //Delete button functionality
+  //----------Delete button functionality----------
   const deleteMatch = async () => {
     try {
       const fetchData = async () => {
@@ -22,13 +22,13 @@ const Items = function (props) {
   };
 
   const analyze = () => {
-    //When you lose in neutral, what moves were you hit by?
+    //----------When you lose in neutral, what moves were you hit by?
     const listOfMovesP1 = [];
     const listOfMovesP2 = [];
     const conversions = data.data.stats.conversions;
 
     for (let conversion of conversions) {
-      //This means player 1 got hit
+      //----------This means player 1 got hit----------
       if (conversion.playerIndex === 0) {
         if (conversion.openingType === "neutral-win") {
           if (masterMoves.hasOwnProperty(conversion.moves[0].moveId)) {
@@ -39,7 +39,7 @@ const Items = function (props) {
         }
       }
       if (conversion.playerIndex === 1) {
-        //This means player 2 got hit
+        //----------This means player 2 got hit----------
         if (conversion.openingType === "neutral-win") {
           if (masterMoves.hasOwnProperty(conversion.moves[0].moveId)) {
             listOfMovesP2.push(masterMoves[conversion.moves[0].moveId]);
@@ -50,7 +50,7 @@ const Items = function (props) {
       }
     }
 
-    //Append to body
+    //----------Append to body----------
     const myDiv = document.createElement("div");
     myDiv.style.textAlign = "center";
     myDiv.innerHTML = `
