@@ -71,6 +71,11 @@ const App = () => {
     }
 
     thumbnailEl.dataset.label = file.name;
+    // console.log("File Type: ", file.name.slice(-3));
+    // if(file.name.slice(-3) !== "slp"){
+    //   const form = document.getElementyById("dropzoneform")
+    //   form.reset;
+    // }
 
     if (file.type.startsWith("image/")) {
       const reader = new FileReader();
@@ -108,19 +113,25 @@ const App = () => {
       <div>
         <h1 className="text-center mt-5">Stop Getting Hit</h1>
         {/* Testing form -----------*/}
-        <form
+        {/* <form
           action="http://localhost:9001/upload"
           method="post"
           encType="multipart/form-data"
         >
-          <input type="file" name="fileupload" />
-          <br />
-          <input type="submit" />
-        </form>
-        {/* Testing form -----------*/}
+          <input type="file" name="fileupload" /> */}
+        {/* <br /> */}
+        {/* <input type="submit" />
+        </form> */}
+        {/* Testing form ----------- */}
         <div id="list">
           <div className="dropbox" id="dropbox">
-            <form action="">
+            <form
+              // action=""
+              action="http://localhost:9001/upload"
+              method="post"
+              encType="multipart/form-data"
+              id="dropzoneform"
+            >
               <div
                 className="dropzone"
                 id="dropzone"
@@ -140,6 +151,7 @@ const App = () => {
                   multiple
                 />
               </div>
+              <input type="submit" className="btn btn-success ml-2" />
             </form>
           </div>
 
