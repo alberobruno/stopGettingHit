@@ -7,6 +7,7 @@
   }
   .dropzone {
     border: 5px dashed red;
+    border: 5px dashed rgb(168, 168, 168);
     width: 400px;
     height: 200px;
     display: flex;
@@ -48,8 +49,34 @@
     text-align: center;
   }
 
+  .dropzoneform {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
   .dropzone--input {
     display: none;
+  }
+
+  .break {
+    flex-basis: 100%;
+    height: 0;
+  }
+
+  .dropboxbuttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -10%;
+  }
+
+  #uploadMatchesButton {
+    height: 60px;
+    width: 50%;
+
+    text-align: center;
   }
 
   #uploadInput {

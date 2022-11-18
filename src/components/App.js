@@ -28,7 +28,7 @@ const App = () => {
       <div>
         <h1 className="text-center mt-5">Stop Getting Hit</h1>
         <div id="list">
-          <Upload />
+          <Upload data={data} setData={setData} />
           <List data={data} setData={setData} />
         </div>
       </div>

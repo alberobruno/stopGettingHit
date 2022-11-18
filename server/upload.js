@@ -4,6 +4,10 @@ const http = require("http");
 const formidable = require("formidable");
 const fs = require("fs");
 const fsPromises = require("fs").promises;
+// const series = require("async");
+// import { series } from "async";
+const { execSync } = require("child_process");
+
 //----------File Upload----------
 http
   .createServer(function (req, res) {
@@ -12,10 +16,13 @@ http
 
     //Process the file upload in Node
     form.parse(req, function (error, fields, file) {
+      console.log("File: ", file);
       let filepath = file.myFile.filepath;
+      let outputpath = path.resolve(__dirname, "./uploadsOutput/");
       let newpath = path.resolve(__dirname, "./uploads/");
-      console.log("Trying to delete existing files...");
+      console.log("Clearing previous files...");
       emptyFolder(newpath);
+      emptyFolder(outputpath);
       newpath += "/" + file.myFile.originalFilename;
 
       //Copy the uploaded file to a custom folder
@@ -26,6 +33,8 @@ http
         });
         res.end();
       });
+      //Run data parser
+      execSync("npm run getData");
     });
   })
   .listen(9001, () => {

@@ -1,6 +1,8 @@
 //----------Initial Setup----------
 const db = require("./models");
 const controller = {};
+const path = require("path");
+const fs = require("fs");
 
 //----------Read Matches----------
 controller.getMatches = async (req, res, next) => {
@@ -24,7 +26,17 @@ controller.addMatches = async (req, res, next) => {
   try {
     //DOES NOT WORK IF rawData INCLUDES FRAMES (TOO MUCH DATA)
     //This should be parsed a match JSON (i.e. rawData.txt)
-    const newMatch = req.body.settings.players;
+    const outputDir = path.resolve(__dirname, "./uploadsOutput/");
+    console.log(outputDir);
+    const uploadedGames = fs.readdirSync(outputDir);
+    console.log(uploadedGames);
+
+    // const newMatch = req.body.settings.players;
+    const newMatch = fs
+      .readFileSync(path.resolve(outputDir, uploadedGames[0]))
+      .toString();
+    // console.log("Brand New Games: ", brandNewMatches);
+    // console.log("New Match: ", newMatch);
     const query = `INSERT INTO matches (player1, player2, data)
     VALUES ('${newMatch[0].displayName}', '${
       newMatch[1].displayName

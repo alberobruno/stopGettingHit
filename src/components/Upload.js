@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 
-//----------Components----------
-import Items from "./Items";
-
-const Upload = function () {
-  //----------For each body, loop through data and populate----------
-
+const Upload = function (props) {
+  //----------Make sure we have access to data----------
+  const { data, setData } = props;
   //----------Dropzone Box Functionality----------
   const dropHandler = (e) => {
     e.preventDefault();
     document.querySelectorAll(".dropzone--input").forEach((inputElement) => {
       const dropzoneEl = inputElement.closest(".dropzone");
-      if (e.dataTransfer.files.length) {
-        inputElement.files = e.dataTransfer.files;
-        updateThumbnail(dropzoneEl, e.dataTransfer.files[0]);
+      const receivedFiles = e.dataTransfer.files;
+      console.log("Received Files: ", receivedFiles);
+      validateFiles(receivedFiles);
+      if (receivedFiles.length) {
+        inputElement.files = receivedFiles;
+        updateThumbnail(dropzoneEl, receivedFiles[0]);
       }
     });
-    dragOverEnd();
+    // dragOverEnd();
   };
   const dropClick = (e) => {
     document.querySelectorAll(".dropzone--input").forEach((inputElement) => {
@@ -56,11 +57,6 @@ const Upload = function () {
     }
 
     thumbnailEl.dataset.label = file.name;
-    // console.log("File Type: ", file.name.slice(-3));
-    // if(file.name.slice(-3) !== "slp"){
-    //   const form = document.getElementyById("dropzoneform")
-    //   form.reset;
-    // }
 
     if (file.type.startsWith("image/")) {
       const reader = new FileReader();
@@ -71,9 +67,28 @@ const Upload = function () {
     } else thumbnailEl.style.backgroundImage = null;
   };
 
+  //----------Validate Uploaded Files----------
+  const validateFiles = (files) => {
+    // console.log("File Type: ", file.name.slice(-3));
+    for (let file of files) {
+      console.log(file.name);
+      if (file.name.slice(-3) !== "slp") {
+        resetForm();
+      }
+    }
+  };
+
+  //----------Validate Uploaded Files----------
+  const resetForm = () => {
+    const form = document.querySelector("#dropzoneform");
+    console.log("Form: ", form);
+    form.reset;
+  };
+
   //----------Upload Button Functionality----------
   const upload = async () => {
     const inputData = $("#uploadInput")[0].value;
+    // console.log("Input Data: ", inputData);
     try {
       const json = await JSON.parse(inputData);
       console.log("Input Accepted");
@@ -92,6 +107,7 @@ const Upload = function () {
   //----------Reload Button Functionality----------
   const reloadPage = () => window.location.reload();
 
+  //----------Render HTML----------
   return (
     <div>
       <div className="dropbox" id="dropbox">
@@ -100,6 +116,7 @@ const Upload = function () {
           method="post"
           encType="multipart/form-data"
           id="dropzoneform"
+          className="dropzoneform"
         >
           <div
             className="dropzone"
@@ -112,15 +129,35 @@ const Upload = function () {
           >
             <span className="dropzone--prompt">
               Drop SLP here or click to upload.
+              <br />
+              Currently supports one file at a time.
             </span>
             <input
               type="file"
               name="myFile"
               className="dropzone--input"
+              accept=".slp"
               multiple
             />
           </div>
-          <input type="submit" className="btn btn-success ml-2" />
+          <div className="break" />
+          <div className="dropboxbuttons">
+            <button
+              type="submit"
+              className="btn btn-success ml-2"
+              accept=".slp"
+              id="uploadMatchesButton"
+            >
+              Upload Matches
+            </button>
+            <button
+              className="btn btn-success ml-2"
+              id="clearButton"
+              onClick={() => resetForm()}
+            >
+              Clear
+            </button>
+          </div>
         </form>
       </div>
 
