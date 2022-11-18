@@ -2,7 +2,6 @@
 const path = require("path");
 const express = require("express");
 const router = require("./router");
-const controllers = require("./controllers");
 
 // const bodyParser = require('body-parser');
 // const cors = require('cors');
