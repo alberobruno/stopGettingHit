@@ -25,6 +25,9 @@
   .dropzone--over {
     border: 5px solid green;
   }
+  .dropzone--error {
+    border: 5px solid red;
+  }
 
   .dropzone--thumbnail {
     width: 100%;

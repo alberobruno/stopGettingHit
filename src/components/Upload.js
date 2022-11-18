@@ -16,8 +16,8 @@ const Upload = function (props) {
         inputElement.files = receivedFiles;
         updateThumbnail(dropzoneEl, receivedFiles[0]);
       }
+      enableSubmitButton();
     });
-    // dragOverEnd();
   };
   const dropClick = (e) => {
     document.querySelectorAll(".dropzone--input").forEach((inputElement) => {
@@ -25,10 +25,12 @@ const Upload = function (props) {
       inputElement.addEventListener("change", (e) => {
         if (inputElement.files.length) {
           updateThumbnail(dropzoneEl, inputElement.files[0]);
+          dropzoneEl.classList.add("dropzone--over");
         }
       });
       inputElement.click();
     });
+    enableSubmitButton();
   };
   const dragOverHandler = (e) => {
     e.preventDefault();
@@ -71,9 +73,10 @@ const Upload = function (props) {
   const validateFiles = (files) => {
     // console.log("File Type: ", file.name.slice(-3));
     for (let file of files) {
-      console.log(file.name);
       if (file.name.slice(-3) !== "slp") {
-        resetForm();
+        console.log("Incorrect file type...reloading page.");
+        document.querySelector("#dropbox").classList.add("dropzone--over");
+        reloadPage();
       }
     }
   };
@@ -85,6 +88,17 @@ const Upload = function (props) {
     form.reset;
   };
 
+  //----------Enable Submit Button----------
+  const enableSubmitButton = () => {
+    document.querySelector("#uploadMatchesButton").removeAttribute("disabled");
+    document.querySelector("#clearButton").removeAttribute("disabled");
+  };
+  //----------Disable Submit Button----------
+  const disableSubmitButton = () => {
+    document.querySelector("#uploadMatchesButton").addAttribute("disabled");
+    document.querySelector("#clearButton").addAttribute("disabled");
+  };
+
   //----------Upload Button Functionality----------
   const upload = async () => {
     const inputData = $("#uploadInput")[0].value;
@@ -93,7 +107,7 @@ const Upload = function (props) {
       const json = await JSON.parse(inputData);
       console.log("Input Accepted");
       const fetchData = async () => {
-        const axiosPost = await axios.post("/upload", json);
+        const axiosPost = await axios.post("/upload");
         const axiosGet = await axios.get("/getMatches");
         setData(axiosGet.data);
         document.getElementById("uploadInput").value = "";
@@ -112,7 +126,7 @@ const Upload = function (props) {
     <div>
       <div className="dropbox" id="dropbox">
         <form
-          action="http://localhost:9001/upload"
+          action="http://localhost:8080/upload"
           method="post"
           encType="multipart/form-data"
           id="dropzoneform"
@@ -147,32 +161,37 @@ const Upload = function (props) {
               className="btn btn-success ml-2"
               accept=".slp"
               id="uploadMatchesButton"
+              disabled
+              onClick={() => {
+                disableSubmitButton();
+              }}
             >
               Upload Matches
             </button>
             <button
               className="btn btn-success ml-2"
               id="clearButton"
-              onClick={() => resetForm()}
+              disabled
+              action={() => reloadPage()}
             >
-              Clear
+              Clear Selection
+            </button>
+            <button
+              className="btn btn-success ml-2 mt-2"
+              onClick={() => reloadPage()}
+            >
+              Reload Page
             </button>
           </div>
         </form>
       </div>
-
-      <div className="mt-5" id="JSONinput">
-        <input type="text" id="uploadInput" />
-        <button className="btn btn-success ml-2" onClick={() => upload()}>
+      {/* Previous Upload Logic */}
+      {/* <div className="mt-5" id="JSONinput"> */}
+      {/* <input type="text" id="uploadInput" /> */}
+      {/* <button className="btn btn-success ml-2" onClick={() => upload()}>
           Upload Match JSON
-        </button>
-        <button
-          className="btn btn-success ml-2 mt-2"
-          onClick={() => reloadPage()}
-        >
-          Reload Page
-        </button>
-      </div>
+        </button> */}
+      {/* </div> */}
     </div>
   );
 };

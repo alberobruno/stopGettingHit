@@ -3,11 +3,13 @@ const db = require("./models");
 const controller = {};
 const path = require("path");
 const fs = require("fs");
+const clearFolders = require("./clearFolders");
 
 //----------Read Matches----------
 controller.getMatches = async (req, res, next) => {
   try {
-    console.log("Trying to get matches!");
+    clearFolders.del();
+    console.log("Trying to get matches...");
     const query = "SELECT * FROM matches";
     const result = await db.query(query);
     res.locals.matchData = result.rows;
@@ -24,23 +26,17 @@ controller.getMatches = async (req, res, next) => {
 //----------Create Matches----------
 controller.addMatches = async (req, res, next) => {
   try {
-    //DOES NOT WORK IF rawData INCLUDES FRAMES (TOO MUCH DATA)
-    //This should be parsed a match JSON (i.e. rawData.txt)
+    //LAGS IF rawData INCLUDES FRAMES (TOO MUCH DATA)
     const outputDir = path.resolve(__dirname, "./uploadsOutput/");
-    console.log(outputDir);
     const uploadedGames = fs.readdirSync(outputDir);
-    console.log(uploadedGames);
 
-    // const newMatch = req.body.settings.players;
-    const newMatch = fs
-      .readFileSync(path.resolve(outputDir, uploadedGames[0]))
-      .toString();
-    // console.log("Brand New Games: ", brandNewMatches);
-    // console.log("New Match: ", newMatch);
+    const newMatch = JSON.parse(
+      fs.readFileSync(path.resolve(outputDir, uploadedGames[0])).toString()
+    );
+    const player1 = newMatch.settings.players[0].displayName;
+    const player2 = newMatch.settings.players[1].displayName;
     const query = `INSERT INTO matches (player1, player2, data)
-    VALUES ('${newMatch[0].displayName}', '${
-      newMatch[1].displayName
-    }', '${JSON.stringify(req.body)}');`;
+    VALUES ('${player1}', '${player2}', '${JSON.stringify(newMatch)}');`;
     const result = await db.query(query);
     next();
   } catch (err) {
@@ -79,7 +75,6 @@ controller.deleteMatches = async (req, res, next) => {
     //Expecting put request to delete/"id"
     const id = req.params.id;
 
-    //let query = `DELETE FROM matches WHERE id='${id}';`;
     let query = "DELETE FROM matches WHERE id=$1";
     let result = await db.query(query, [id]);
     next();
@@ -92,20 +87,19 @@ controller.deleteMatches = async (req, res, next) => {
   }
 };
 
-// //----------Get Db Data----------
-// controller.getDbData = async (req, res, next) => {
-//   try {
-//     console.log('Getting database data!');
-
-//     next();
-//   } catch (err) {
-//     next({
-//       log: `controller.getDbData: ${err}`,
-//       status: 400,
-//       message: err,
-//     });
-//   }
-// };
+//----------Clear Uploads Folder----------
+const emptyFolder = async (folderPath) => {
+  try {
+    // Find all files in the folder
+    const files = await fsPromises.readdir(folderPath);
+    for (const file of files) {
+      await fsPromises.unlink(path.resolve(folderPath, file));
+      console.log(`${folderPath}/${file} has been removed successfully`);
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 //----------Export----------
 module.exports = controller;
