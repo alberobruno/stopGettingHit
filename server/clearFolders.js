@@ -14,8 +14,11 @@ const del = async () => {
     for (let filePath of paths) {
       const files = await fsPromises.readdir(filePath);
       for (const file of files) {
-        await fsPromises.unlink(path.resolve(filePath, file));
-        console.log(`${filePath}/${file} has been removed successfully`);
+        // console.log("Getting here");
+        if (file !== ".gitkeep") {
+          await fsPromises.unlink(path.resolve(filePath, file));
+          console.log(`${filePath}/${file} has been removed successfully`);
+        }
       }
     }
   } catch (err) {
