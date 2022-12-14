@@ -4,6 +4,7 @@ const { SlippiGame } = require("@slippi/slippi-js");
 const { moves } = require("@slippi/slippi-js");
 const path = require("path");
 const fs = require("fs");
+const createGitkeep = require("./createGitkeep");
 
 let rawData = {};
 
@@ -43,3 +44,5 @@ for (let uploadedGame of uploadedGames) {
     () => console.log(uploadedGame, " data saved")
   );
 }
+
+// createGitkeep.add();

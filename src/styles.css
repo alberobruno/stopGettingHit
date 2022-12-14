@@ -103,3 +103,15 @@
     width: 600px;
     text-align: center;
   }
+
+  .footer {
+    display: flex;
+    width: 100%;
+    background-color: black;
+    color: white;
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+  }
