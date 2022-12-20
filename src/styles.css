@@ -104,14 +104,16 @@
     text-align: center;
   }
 
-  .footer {
+  .header {
     display: flex;
     width: 100%;
-    background-color: black;
-    color: white;
+    background-color: rgba(255, 255, 255, .75);
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
+    color: Black;
     position: fixed;
-    bottom: 0;
+    top: 0;
     text-align: center;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
+    padding-left: 5%;
   }

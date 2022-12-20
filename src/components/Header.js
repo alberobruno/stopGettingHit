@@ -1,14 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Footer = () => {
+const Header = () => {
   return (
-    <div className="footer">
+    <div className="header">
       <p>
-        <Link to="/">Home</Link>
+        <Link to="/">Back to Matches</Link>
       </p>
     </div>
   );
 };
 
-export default Footer;
+export default Header;

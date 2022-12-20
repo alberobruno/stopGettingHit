@@ -12,7 +12,7 @@ import Upload from "./Upload";
 import List from "./List";
 // import Home from "./Home";
 import Analysis from "./Analysis";
-import Footer from "./Footer";
+// import Header from "./Header";
 
 const App = () => {
   const [data, setData] = useState();
@@ -31,7 +31,9 @@ const App = () => {
     return (
       <div>
         <HashRouter>
-          <h1 className="text-center mt-5">Stop Getting Hit</h1>
+          <h1 className="text-center mt-5" style={{ paddingTop: "50px" }}>
+            Stop Getting Hit
+          </h1>
           <div id="list">
             <Upload data={data} setData={setData} />
             <div className="Routes">
@@ -43,7 +45,7 @@ const App = () => {
                 <Route path="/analysis" element={<Analysis />} />
               </Routes>
             </div>
-            <Footer />
+            {/* <Header /> */}
           </div>
         </HashRouter>
       </div>
