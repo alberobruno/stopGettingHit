@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const Upload = function (props) {
-  //----------Make sure we have access to data----------
-  const { data, setData } = props;
   //----------Dropzone Box Functionality----------
   const dropHandler = (e) => {
     e.preventDefault();
@@ -172,7 +170,7 @@ const Upload = function (props) {
               className="btn btn-success ml-2"
               id="clearButton"
               disabled
-              action={() => reloadPage()}
+              // action={() => reloadPage()}
             >
               Clear Selection
             </button>

@@ -5,7 +5,9 @@ const Header = () => {
   return (
     <div className="header">
       <p>
-        <Link to="/">Back to Matches</Link>
+        <Link to="/" className="link" style={{ color: "black" }}>
+          Back to Matches
+        </Link>
       </p>
     </div>
   );

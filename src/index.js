@@ -1,6 +1,11 @@
 import React from "react";
-import reactDom from "react-dom";
+import ReactDOM from "react-dom/client";
 import App from "./components/App";
 import "C:/Users/alber/Downloads/Coding/stopGettingHit/src/styles.css";
 
-reactDom.render(<App />, document.getElementById("app"));
+const root = ReactDOM.createRoot(document.getElementById("app"));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);

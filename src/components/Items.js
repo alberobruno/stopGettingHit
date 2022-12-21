@@ -75,12 +75,10 @@ const Items = function (props) {
         </button>
       </td>
       <td>
-        <button
-          className="btn btn-success ml-2 mt-2" /*onClick={() => analyze()}*/
-        >
-          {/* <Link to="/analysis">Analyze Match</Link> */}
+        <button className="btn btn-success ml-2 mt-2">
           <Link
             to={"/analysis"}
+            className="link"
             state={{ data: data, id: id, player1: player1, player2: player2 }}
           >
             Analyze Match

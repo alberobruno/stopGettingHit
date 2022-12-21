@@ -12,7 +12,7 @@ const Analysis = function (props) {
   let hasAnalysisBeenRun = false;
 
   //This happens twice, not sure why
-  console.log("State Params Value: ", data);
+  console.log("Analysis use location data: ", data);
 
   const analyze = () => {
     //----------When you lose in neutral, what moves were you hit by?
@@ -31,8 +31,8 @@ const Analysis = function (props) {
           }
         }
       }
+      //----------This means player 2 got hit----------
       if (conversion.playerIndex === 1) {
-        //----------This means player 2 got hit----------
         if (conversion.openingType === "neutral-win") {
           if (masterMoves.hasOwnProperty(conversion.moves[0].moveId)) {
             listOfMovesP2.push(masterMoves[conversion.moves[0].moveId]);
@@ -42,29 +42,17 @@ const Analysis = function (props) {
         }
       }
     }
-
     playerMoves = [listOfMovesP1, listOfMovesP2];
-    //----------Append to body----------
-    // const myDiv = document.createElement("div");
-    // myDiv.style.textAlign = "center";
-    // myDiv.innerHTML = `
-    // <h5>Analyzing match id: ${id}... where did we lose neutral?</h5>
-    // <p>Player1 (${player1}) should stop getting hit by </p><p>[${listOfMovesP1}]\n</p>
-    // <p>Player2 (${player2}) should stop getting hit by </p><p>[${listOfMovesP2}]\n</p>`;
-    // document.body.appendChild(myDiv);
   };
 
   if (!hasAnalysisBeenRun) {
-    analyze();
     hasAnalysisBeenRun = true;
+    analyze();
   }
-
-  console.log("Error is After this");
 
   return (
     <div>
       <Header />
-      {/* <span>This is the analysis page</span> */}
       <h5>Analyzing match id: {id}... where did we lose neutral?</h5>
       <p>Player1 ({player1}) should stop getting hit by </p>
       <p>[{playerMoves[0]}]</p>

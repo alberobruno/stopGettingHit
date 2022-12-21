@@ -117,3 +117,14 @@
     align-items: center;
     padding-left: 5%;
   }
+
+  .link {
+    text-decoration: none;
+    color: white;
+  }
+
+  .link:hover {
+    text-decoration: none;
+    color: white;
+    text-decoration: underline;
+  }
