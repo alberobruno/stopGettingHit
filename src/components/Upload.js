@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const Upload = function (props) {
-  //----------Make sure we have access to data----------
-  const { data, setData } = props;
   //----------Dropzone Box Functionality----------
   const dropHandler = (e) => {
     e.preventDefault();
@@ -168,14 +166,14 @@ const Upload = function (props) {
             >
               Upload Matches
             </button>
-            <button
+            {/* <button
               className="btn btn-success ml-2"
               id="clearButton"
               disabled
               action={() => reloadPage()}
             >
               Clear Selection
-            </button>
+            </button> */}
             <button
               className="btn btn-success ml-2 mt-2"
               onClick={() => reloadPage()}
@@ -185,13 +183,6 @@ const Upload = function (props) {
           </div>
         </form>
       </div>
-      {/* Previous Upload Logic */}
-      {/* <div className="mt-5" id="JSONinput"> */}
-      {/* <input type="text" id="uploadInput" /> */}
-      {/* <button className="btn btn-success ml-2" onClick={() => upload()}>
-          Upload Match JSON
-        </button> */}
-      {/* </div> */}
     </div>
   );
 };

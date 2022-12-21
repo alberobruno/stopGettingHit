@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import masterMoves from "./masterMoves";
+import { Link } from "react-router-dom";
 
 const Items = function (props) {
   //----------Make sure we have access to data----------
@@ -74,8 +75,14 @@ const Items = function (props) {
         </button>
       </td>
       <td>
-        <button className="btn btn-success ml-2 mt-2" onClick={() => analyze()}>
-          Analyze Match
+        <button className="btn btn-success ml-2 mt-2">
+          <Link
+            to={"/analysis"}
+            className="link"
+            state={{ data: data, id: id, player1: player1, player2: player2 }}
+          >
+            Analyze Match
+          </Link>
         </button>
       </td>
     </tr>

@@ -27,24 +27,26 @@
     "pg": "^8.7.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.4.5",
     "style-loader": "^3.3.1",
     "url-loader": "^4.1.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.18.6",
-    "@babel/preset-env": "^7.18.6",
+    "@babel/core": "^7.20.5",
+    "@babel/preset-env": "^7.20.2",
     "@babel/preset-react": "^7.18.6",
-    "babel-loader": "^8.2.5",
+    "babel-loader": "^8.3.0",
     "concurrently": "^6.0.2",
     "cross-env": "^7.0.3",
     "html-webpack-plugin": "^5.5.0",
     "isomorphic-fetch": "^3.0.0",
     "nodemon": "^2.0.7",
+    "react-hot-loader": "^4.13.1",
     "sass": "^1.56.1",
     "sass-loader": "^13.2.0",
-    "webpack": "^5.73.0",
-    "webpack-cli": "^4.8.0",
-    "webpack-dev-server": "^4.9.3"
+    "webpack": "^5.75.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.11.1"
   },
   "repository": {
     "type": "git",

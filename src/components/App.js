@@ -3,37 +3,35 @@
  * @param {HTMLElement} dropzoneElement
  */
 
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useState } from "react";
+import { Routes, Route, HashRouter } from "react-router-dom";
 
 //----------Components----------
 import Upload from "./Upload";
 import List from "./List";
+import Analysis from "./Analysis";
+import { DataContext } from "./DataContext";
 
 const App = () => {
-  const [data, setData] = useState();
-
-  //----------Fetch matches table from backend----------
-  useEffect(() => {
-    const fetchData = async () => {
-      const axiosGet = await axios.get("/getMatches");
-      setData(axiosGet.data);
-    };
-    const grab = fetchData();
-  }, []);
-
-  //----------If data exists - render the page----------
-  if (data) {
-    return (
-      <div>
-        <h1 className="text-center mt-5">Stop Getting Hit</h1>
+  const [receivedData, setReceivedData] = useState(null);
+  return (
+    <HashRouter>
+      <DataContext.Provider value={{ receivedData, setReceivedData }}>
+        <h1 className="text-center mt-5" style={{ paddingTop: "50px" }}>
+          Stop Getting Hit
+        </h1>
         <div id="list">
-          <Upload data={data} setData={setData} />
-          <List data={data} setData={setData} />
+          <Upload />
+          <div className="Routes">
+            <Routes>
+              <Route path="/" element={<List />} />
+              <Route path="/analysis" element={<Analysis />} />
+            </Routes>
+          </div>
         </div>
-      </div>
-    );
-  }
+      </DataContext.Provider>
+    </HashRouter>
+  );
 };
 
 export default App;

@@ -4,6 +4,7 @@ const { SlippiGame } = require("@slippi/slippi-js");
 const { moves } = require("@slippi/slippi-js");
 const path = require("path");
 const fs = require("fs");
+const createGitkeep = require("./createGitkeep");
 
 let rawData = {};
 
@@ -32,8 +33,10 @@ for (let uploadedGame of uploadedGames) {
 
   // Get frames – animation state, inputs, etc
   // This is used to compute your own stats or get more frame-specific info (advanced)
-  const frames = game.getFrames();
-  rawData["frames"] = frames;
+
+  // const frames = game.getFrames();
+  // rawData["frames"] = frames;
+
   //Application breaks if we include this line, JSON becomes too big
   // console.log(frames[0].players); // Print frame when timer starts counting down
 
@@ -43,3 +46,5 @@ for (let uploadedGame of uploadedGames) {
     () => console.log(uploadedGame, " data saved")
   );
 }
+
+// createGitkeep.add();

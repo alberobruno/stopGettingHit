@@ -4,11 +4,13 @@ const controller = {};
 const path = require("path");
 const fs = require("fs");
 const clearFolders = require("./clearFolders");
+const createGitkeep = require("./createGitkeep");
 
 //----------Read Matches----------
 controller.getMatches = async (req, res, next) => {
   try {
     clearFolders.del();
+    // createGitkeep.add();
     console.log("Trying to get matches...");
     const query = "SELECT * FROM matches";
     const result = await db.query(query);
@@ -38,6 +40,7 @@ controller.addMatches = async (req, res, next) => {
     const query = `INSERT INTO matches (player1, player2, data)
     VALUES ('${player1}', '${player2}', '${JSON.stringify(newMatch)}');`;
     const result = await db.query(query);
+    // createGitkeep.add();
     next();
   } catch (err) {
     next({
