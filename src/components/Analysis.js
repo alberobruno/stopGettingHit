@@ -52,7 +52,9 @@ const Analysis = function (props) {
 
   return (
     <div>
-      <Header />
+      <Header
+        state={{ data: data, id: id, player1: player1, player2: player2 }}
+      />
       <h5>Analyzing match id: {id}... where did we lose neutral?</h5>
       <p>Player1 ({player1}) should stop getting hit by </p>
       <p>[{playerMoves[0]}]</p>
