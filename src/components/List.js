@@ -53,9 +53,9 @@ const List = function (props) {
     return (
       <div className="list">
         <div id="listComponent">
-          <span>Loading data from database...</span>
+          <span>Fetching data from database...</span>
           <br></br>
-          <span>(Usually takes 15 secs)</span>
+          <span>(May take up to 10 secs)</span>
         </div>
       </div>
     );

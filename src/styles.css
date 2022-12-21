@@ -96,7 +96,7 @@
   .list {
     display: flex;
     justify-content: center;
-    margin-top: 100px;
+    margin-top: 50px;
   }
 
   #listComponent {
@@ -127,4 +127,33 @@
     text-decoration: none;
     color: white;
     text-decoration: underline;
+  }
+
+  .analysis {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    flex-direction: column;
+  }
+
+  .analysis-heading {
+    width: 100%;
+  }
+
+  .analysis-content {
+    margin-left: 5%;
+    margin-right: 5%;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+  }
+
+  .analysis-content-text {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5%;
+    margin-left: 10%;
+    margin-right: 10%;
+
   }

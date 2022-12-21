@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams, useLocation } from "react-router-dom";
 import masterMoves from "./masterMoves";
 import Header from "./Header";
+import Falco from "../assets/falco.png";
+import Fox from "../assets/fox.png";
 
 const Analysis = function (props) {
   const data = useLocation().state.data;
@@ -51,15 +53,32 @@ const Analysis = function (props) {
   }
 
   return (
-    <div>
+    <div style={{ marginTop: "60px" }}>
       <Header
         state={{ data: data, id: id, player1: player1, player2: player2 }}
       />
-      <h5>Analyzing match id: {id}... where did we lose neutral?</h5>
-      <p>Player1 ({player1}) should stop getting hit by </p>
-      <p>[{playerMoves[0]}]</p>
-      <p>Player2 ({player2}) should stop getting hit by </p>
-      <p>[{playerMoves[1]}]</p>
+      <div className="analysis">
+        <div className="analysis-heading">
+          <h1>Analysis</h1>
+          <h5> Match ID: {id}</h5>
+        </div>
+        <div className="analysis-content">
+          <div className="player1">
+            <img src={Falco} style={{ height: "555px", width: "340px" }}></img>
+            <div>Player1 ({player1})</div>
+          </div>
+          <div className="analysis-content-text">
+            <p>lost in neutral to the following moves </p>
+            <p>[{playerMoves[0]}]</p>
+            <p>Player2 ({player2}) lost in neutral to the following moves </p>
+            <p>[{playerMoves[1]}]</p>
+          </div>
+          <div className="player1">
+            <img src={Fox} style={{ height: "555px", width: "340px" }}></img>
+            <div>Player2 ({player2})</div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import List from "./List";
 
 const Upload = function (props) {
   //----------Dropzone Box Functionality----------
@@ -121,52 +122,56 @@ const Upload = function (props) {
 
   //----------Render HTML----------
   return (
-    <div>
-      <div className="dropbox" id="dropbox">
-        <form
-          action="http://localhost:8080/upload"
-          method="post"
-          encType="multipart/form-data"
-          id="dropzoneform"
-          className="dropzoneform"
-        >
-          <div
-            className="dropzone"
-            id="dropzone"
-            onClick={(e) => dropClick(e)}
-            onDrop={(e) => dropHandler(e)}
-            onDragOver={(e) => dragOverHandler(e)}
-            onDragEnd={() => dragOverEnd()}
-            onDragLeave={() => dragOverEnd()}
+    <>
+      <h1 className="text-center mt-5" style={{ paddingTop: "50px" }}>
+        Stop Getting Hit
+      </h1>
+      <div>
+        <div className="dropbox" id="dropbox">
+          <form
+            action="http://localhost:8080/upload"
+            method="post"
+            encType="multipart/form-data"
+            id="dropzoneform"
+            className="dropzoneform"
           >
-            <span className="dropzone--prompt">
-              Drop SLP here or click to upload.
-              <br />
-              Currently supports one file at a time.
-            </span>
-            <input
-              type="file"
-              name="myFile"
-              className="dropzone--input"
-              accept=".slp"
-              multiple
-            />
-          </div>
-          <div className="break" />
-          <div className="dropboxbuttons">
-            <button
-              type="submit"
-              className="btn btn-success ml-2"
-              accept=".slp"
-              id="uploadMatchesButton"
-              disabled
-              onClick={() => {
-                disableSubmitButton();
-              }}
+            <div
+              className="dropzone"
+              id="dropzone"
+              onClick={(e) => dropClick(e)}
+              onDrop={(e) => dropHandler(e)}
+              onDragOver={(e) => dragOverHandler(e)}
+              onDragEnd={() => dragOverEnd()}
+              onDragLeave={() => dragOverEnd()}
             >
-              Upload Matches
-            </button>
-            {/* <button
+              <span className="dropzone--prompt">
+                Drop SLP here or click to upload.
+                <br />
+                Currently supports one file at a time.
+              </span>
+              <input
+                type="file"
+                name="myFile"
+                className="dropzone--input"
+                accept=".slp"
+                multiple
+              />
+            </div>
+            <div className="break" />
+            <div className="dropboxbuttons">
+              <button
+                type="submit"
+                className="btn btn-success ml-2"
+                accept=".slp"
+                id="uploadMatchesButton"
+                disabled
+                onClick={() => {
+                  disableSubmitButton();
+                }}
+              >
+                Upload Matches
+              </button>
+              {/* <button
               className="btn btn-success ml-2"
               id="clearButton"
               disabled
@@ -174,16 +179,18 @@ const Upload = function (props) {
             >
               Clear Selection
             </button> */}
-            <button
-              className="btn btn-success ml-2 mt-2"
-              onClick={() => reloadPage()}
-            >
-              Reload Page
-            </button>
-          </div>
-        </form>
+              <button
+                className="btn btn-success ml-2 mt-2"
+                onClick={() => reloadPage()}
+              >
+                Reload Page
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
+      <List />
+    </>
   );
 };
 
