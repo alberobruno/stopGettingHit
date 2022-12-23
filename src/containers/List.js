@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useContext } from "react";
-import { DataContext } from "./DataContext";
+import { DataContext } from "../contexts/DataContext";
 import axios from "axios";
 
 //----------Components----------
-import Items from "./Items";
+import Items from "../components/Items";
 
 const List = function (props) {
   //----------Make sure we have access to data----------
@@ -41,6 +41,7 @@ const List = function (props) {
                 <th>Id </th>
                 <th>Player 1</th>
                 <th>Player 2</th>
+                <th></th>
                 <th></th>
               </tr>
             </thead>

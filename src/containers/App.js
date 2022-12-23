@@ -9,7 +9,7 @@ import { Routes, Route, HashRouter } from "react-router-dom";
 //----------Components----------
 import Upload from "./Upload";
 import Analysis from "./Analysis";
-import { DataContext } from "./DataContext";
+import { DataContext } from "../contexts/DataContext";
 
 const App = () => {
   const [receivedData, setReceivedData] = useState(null);

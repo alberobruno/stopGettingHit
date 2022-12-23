@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams, useLocation } from "react-router-dom";
-import masterMoves from "./masterMoves";
-import Header from "./Header";
-import PlayerStats from "./PlayerStats";
+import analyzeMoves from "../stats/AnalyzeMoves";
+import Header from "../components/Header";
+import PlayerStats from "../components/PlayerStats";
 import Falco from "../assets/falco.png";
 import Fox from "../assets/fox.png";
 
@@ -22,40 +22,9 @@ const Analysis = function (props) {
     setP1MainPlayer(!p1MainPlayer);
   };
 
-  const analyze = () => {
-    //----------When you lose in neutral, what moves were you hit by?
-    const listOfMovesP1 = [];
-    const listOfMovesP2 = [];
-    const conversions = data.data.stats.conversions;
-
-    for (let conversion of conversions) {
-      //----------This means player 1 got hit----------
-      if (conversion.playerIndex === 0) {
-        if (conversion.openingType === "neutral-win") {
-          if (masterMoves.hasOwnProperty(conversion.moves[0].moveId)) {
-            listOfMovesP1.push(masterMoves[conversion.moves[0].moveId]);
-          } else {
-            listOfMovesP1.push(conversion.moves[0].moveId);
-          }
-        }
-      }
-      //----------This means player 2 got hit----------
-      if (conversion.playerIndex === 1) {
-        if (conversion.openingType === "neutral-win") {
-          if (masterMoves.hasOwnProperty(conversion.moves[0].moveId)) {
-            listOfMovesP2.push(masterMoves[conversion.moves[0].moveId]);
-          } else {
-            listOfMovesP2.push(conversion.moves[0].moveId);
-          }
-        }
-      }
-    }
-    playerMoves = [listOfMovesP1, listOfMovesP2];
-  };
-
   if (!hasAnalysisBeenRun) {
     hasAnalysisBeenRun = true;
-    analyze();
+    playerMoves = analyzeMoves(data);
   }
 
   const player1ToggleStyles = {

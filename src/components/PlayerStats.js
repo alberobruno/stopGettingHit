@@ -17,7 +17,7 @@ const PlayerStats = function (props) {
     i++
   ) {
     beatenBy.push(
-      <tr>
+      <tr key={i}>
         <td>{p1MainPlayer ? p1BeatenBy[i] : p2BeatenBy[i]}</td>
         <td>{movesPerformed}</td>
       </tr>

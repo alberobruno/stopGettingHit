@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import masterMoves from "./masterMoves";
 import { Link } from "react-router-dom";
 
 const Items = function (props) {
