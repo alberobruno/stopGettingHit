@@ -1,5 +1,7 @@
 
-
+body {
+  overflow-x: hidden;
+}
   .dropbox {
     display: flex;
     justify-content: center;
@@ -106,6 +108,7 @@
 
   .header {
     display: flex;
+    padding-top: 1vh;
     width: 100%;
     background-color: rgba(255, 255, 255, .75);
     box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
@@ -142,18 +145,101 @@
   }
 
   .analysis-content {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+
+  .analysis-content-container {
     margin-left: 5%;
     margin-right: 5%;
     display: flex;
     flex-direction: row;
-    width: 100%;
+    width: 75%;
+    justify-content: center;
+    align-items: center;
   }
 
   .analysis-content-text {
     display: flex;
     flex-direction: column;
     margin-top: 5%;
-    margin-left: 10%;
-    margin-right: 10%;
+    margin-left: 5%;
+    margin-right: 5%;
+    width: 100%;
+  }
 
+  .player1-name {
+    background-color: rgb(138, 6, 6);
+    color: white;
+    font-weight: bolder;
+  }
+  
+  .player2-name {
+    background-color: rgb(8, 6, 138);
+    color: white;
+    font-weight: bolder;
+  }
+
+  .select-player {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    color: white;
+  }
+
+  .select-player-container {
+    display: flex;
+    justify-content: center;
+    width: 400px;
+  }
+
+
+  .select-player-1 {
+    background-color: blue;
+    width: 40%;
+    position: relative;
+    border-radius: 13px 0px 0px 13px;
+    cursor: pointer;
+    left: -11px;
+    user-select: none;
+  }
+
+  .select-player-1::after {
+    right:-23px;
+    bottom: 0;
+    top: 0;
+    content: '';
+    background-color: transparent;
+    width: 0;
+    height: 100%;
+    border-right: 24px solid transparent;
+    border-top: 24px solid blue;
+    position: absolute;
+  }
+
+  .select-player-2 {
+    background-color: green;
+    width: 40%;
+    position: relative;
+    border-radius: 0px 13px 13px 0px;
+    cursor: pointer;
+    right: -12px;
+    user-select: none;
+  }
+
+  .select-player-2::before {
+    left:-23px;
+    bottom: 0;
+    top: 0;
+    content: '';
+    background-color: transparent;
+    width: 0;
+    height: 100%;
+    border-right: 24px solid green;
+    border-top: 24px solid transparent;
+    position: absolute;
   }
