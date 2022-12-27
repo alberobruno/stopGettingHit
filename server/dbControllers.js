@@ -1,23 +1,27 @@
 //----------Initial Setup----------
 const db = require('./models');
+const redisClient = require('./redis')
 const controller = {};
 const path = require('path');
 const fs = require('fs');
 const clearFolders = require('./clearFolders');
-const createGitkeep = require('./createGitkeep');
+// const createGitkeep = require('./createGitkeep');
 
 //----------Read Matches----------
-
-//----------Redis Testing Second----------
-
 controller.getMatches = async (req, res, next) => {
   try {
     clearFolders.del();
     // createGitkeep.add();
     console.log('Trying to get matches...');
     const query = 'SELECT * FROM matches';
-    const result = await db.query(query);
-    res.locals.matchData = result.rows;
+    const results = await db.query(query);
+    res.locals.matchData = await results.rows;
+
+    //----------Redis Testing----------
+    for(let el in results.rows){
+      await redisClient.set(`match${results.rows[el].id}`, JSON.stringify(results.rows[el]))
+    }
+    //--------------------
     next();
   } catch (err) {
     next({
@@ -43,6 +47,8 @@ controller.addMatches = async (req, res, next) => {
     const query = `INSERT INTO matches (player1, player2, data)
     VALUES ('${player1}', '${player2}', '${JSON.stringify(newMatch)}');`;
     const result = await db.query(query);
+
+
     // createGitkeep.add();
     next();
   } catch (err) {

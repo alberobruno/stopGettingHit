@@ -30,6 +30,7 @@ app.use((err, req, res, next) => {
   return res.status(errorObj.status).json(errorObj.message);
 });
 
+
 //----------Start Server----------
 app.listen(PORT, () => {
   console.log(`Server listening on port: ${PORT}...`);
