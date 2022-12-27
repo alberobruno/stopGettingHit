@@ -159,6 +159,7 @@ body {
   align-content: center;
   text-align: center;
   flex-direction: column;
+  margin-top: 60px;
 }
 
 .analysis-heading {

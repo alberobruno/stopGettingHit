@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 const PlayerStats = function (props) {
   //----------Make sure we have access to data----------
-  const { playerMoves, p1MainPlayer } = props;
+  const { playerMoves, p1MainPlayer, player1, player2 } = props;
 
   const p1BeatenBy = playerMoves[0];
   const p2BeatenBy = playerMoves[1];
@@ -26,7 +26,8 @@ const PlayerStats = function (props) {
 
   return (
     <>
-      <h3 style={{ marginBottom: "25px" }}>Times you lost in neutral</h3>
+      <h3 style={{ marginBottom: "25px" }}>When did you lose in neutral?</h3>
+
       <table className="table table-hover">
         <thead>
           <tr>
