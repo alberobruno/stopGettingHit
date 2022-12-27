@@ -1,18 +1,21 @@
 //----------Initial Setup----------
-const db = require("./models");
+const db = require('./models');
 const controller = {};
-const path = require("path");
-const fs = require("fs");
-const clearFolders = require("./clearFolders");
-const createGitkeep = require("./createGitkeep");
+const path = require('path');
+const fs = require('fs');
+const clearFolders = require('./clearFolders');
+const createGitkeep = require('./createGitkeep');
 
 //----------Read Matches----------
+
+//----------Redis Testing----------
+
 controller.getMatches = async (req, res, next) => {
   try {
     clearFolders.del();
     // createGitkeep.add();
-    console.log("Trying to get matches...");
-    const query = "SELECT * FROM matches";
+    console.log('Trying to get matches...');
+    const query = 'SELECT * FROM matches';
     const result = await db.query(query);
     res.locals.matchData = result.rows;
     next();
@@ -29,7 +32,7 @@ controller.getMatches = async (req, res, next) => {
 controller.addMatches = async (req, res, next) => {
   try {
     //LAGS IF rawData INCLUDES FRAMES (TOO MUCH DATA)
-    const outputDir = path.resolve(__dirname, "./uploadsOutput/");
+    const outputDir = path.resolve(__dirname, './uploadsOutput/');
     const uploadedGames = fs.readdirSync(outputDir);
 
     const newMatch = JSON.parse(
@@ -78,7 +81,7 @@ controller.deleteMatches = async (req, res, next) => {
     //Expecting put request to delete/"id"
     const id = req.params.id;
 
-    let query = "DELETE FROM matches WHERE id=$1";
+    let query = 'DELETE FROM matches WHERE id=$1';
     let result = await db.query(query, [id]);
     next();
   } catch (err) {
