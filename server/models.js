@@ -1,7 +1,7 @@
-const { Pool } = require("pg");
+const { Pool } = require('pg');
+require('dotenv').config();
 
-const PG_URI =
-  "postgres://itneegny:60GtuTm0-vh25T7_pMYJk93VjKnZmv4g@jelani.db.elephantsql.com/itneegny";
+const PG_URI = process.env.DATABASE_URL;
 
 // create a new pool here using the connection string above
 const pool = new Pool({
@@ -14,8 +14,8 @@ const pool = new Pool({
 module.exports = {
   query: (text, params, callback) => {
     console.log(
-      "executed query",
-      text.length < 100 ? text : text.substring(0, 100) + "......etc"
+      'executed query',
+      text.length < 100 ? text : text.substring(0, 100) + '......etc'
     );
     return pool.query(text, params, callback);
   },
