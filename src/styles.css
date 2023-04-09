@@ -1,130 +1,281 @@
+body {
+  overflow-x: hidden;
+}
 
+/* ----------Remove Scrollbar---------- */
+/* Google Chrome */
+body::-webkit-scrollbar{
+  display: none;
+}
+/* Fire Fox */
+html {
+  scrollbar-width: none;
+}
+/* Edge */
+body {
+  -ms-overflow-style: none;
+}
 
-  .dropbox {
+/* ----------Dropbox---------- */
+.dropbox {
     display: flex;
     justify-content: center;
     margin-top: 50px;
   }
-  .dropzone {
-    border: 5px dashed red;
-    border: 5px dashed rgb(168, 168, 168);
-    width: 400px;
-    height: 200px;
-    display: flex;
-    align-content: center;
-    justify-content: center;
-    text-align: center;
-    border-radius: 10px;
-    padding: 25px;
-    font-family: 'Quicksand', sans-serif;
-    cursor: pointer;
-    color: #a5a5a5;
-    font-weight: 500;
-  }
+.dropzone {
+  border: 5px dashed red;
+  border: 5px dashed rgb(168, 168, 168);
+  width: 400px;
+  height: 200px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  text-align: center;
+  border-radius: 10px;
+  padding: 25px;
+  font-family: 'Quicksand', sans-serif;
+  cursor: pointer;
+  color: #a5a5a5;
+  font-weight: 500;
+}
 
-  .dropzone--over {
-    border: 5px solid green;
-  }
-  .dropzone--error {
-    border: 5px solid red;
-  }
+.dropzone--over {
+  border: 5px solid green;
+}
+.dropzone--error {
+  border: 5px solid red;
+}
 
-  .dropzone--thumbnail {
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    overflow: hidden;
-    background-color: #a5a5a5;
-    background-size: cover;
-    position: relative;
-  }
+.dropzone--thumbnail {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #a5a5a5;
+  background-size: cover;
+  position: relative;
+}
 
-  .dropzone--thumbnail::after {
-    content: attr(data-label);
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 5px 0;
-    color: white;
-    background-color: rgba(0, 0, 0, .75);
-    font-size: 14px;
-    text-align: center;
-  }
+.dropzone--thumbnail::after {
+  content: attr(data-label);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 5px 0;
+  color: white;
+  background-color: rgba(0, 0, 0, .75);
+  font-size: 14px;
+  text-align: center;
+}
 
-  .dropzoneform {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
+.dropzoneform {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
-  .dropzone--input {
-    display: none;
-  }
+.dropzone--input {
+  display: none;
+}
 
-  .break {
-    flex-basis: 100%;
-    height: 0;
-  }
+.break {
+  flex-basis: 100%;
+  height: 0;
+}
 
-  .dropboxbuttons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: -10%;
-  }
+.dropboxbuttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -10%;
+}
 
-  #uploadMatchesButton {
-    height: 60px;
-    width: 50%;
+#uploadMatchesButton {
+  height: 60px;
+  width: 50%;
 
-    text-align: center;
-  }
+  text-align: center;
+}
 
-  #uploadInput {
-    width: 700px;
-    border: 2px solid rgb(222, 226, 230);
-    border-radius: 6px;
-  }
+#uploadInput {
+  width: 700px;
+  border: 2px solid rgb(222, 226, 230);
+  border-radius: 6px;
+}
 
-  #JSONinput {
-    display: flex;
-    justify-content: center;
-  }
+#JSONinput {
+  display: flex;
+  justify-content: center;
+}
 
-  .list {
-    display: flex;
-    justify-content: center;
-    margin-top: 100px;
-  }
+/* ----------List---------- */
+.list {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
 
-  #listComponent {
-    width: 600px;
-    text-align: center;
-  }
+#listComponent {
+  width: 600px;
+  text-align: center;
+}
 
-  .header {
-    display: flex;
-    width: 100%;
-    background-color: rgba(255, 255, 255, .75);
-    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
-    color: Black;
-    position: fixed;
-    top: 0;
-    text-align: center;
-    justify-content: start;
-    align-items: center;
-    padding-left: 5%;
-  }
+.header {
+  display: flex;
+  padding-top: 1vh;
+  width: 100%;
+  background-color: rgba(255, 255, 255, .75);
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
+  color: Black;
+  position: fixed;
+  top: 0;
+  text-align: center;
+  justify-content: start;
+  align-items: center;
+  padding-left: 5%;
+}
 
-  .link {
-    text-decoration: none;
-    color: white;
-  }
+.link {
+  text-decoration: none;
+  color: white;
+}
 
-  .link:hover {
-    text-decoration: none;
-    color: white;
-    text-decoration: underline;
-  }
+.link:hover {
+  text-decoration: none;
+  color: white;
+  text-decoration: underline;
+}
+
+/* ----------Analysis Containers---------- */
+.header {
+  z-index: 2;
+}
+
+.analysis {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+  flex-direction: column;
+  margin-top: 60px;
+}
+
+.analysis-heading {
+  width: 100%;
+}
+
+/* ----------Player Toggles---------- */
+.select-player {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  color: white;
+}
+
+.select-player-container {
+  display: flex;
+  justify-content: center;
+  width: 400px;
+}
+
+
+.select-player-1 {
+  background-color: #8b0000;
+  width: 40%;
+  position: relative;
+  border-radius: 13px 0px 0px 13px;
+  cursor: pointer;
+  left: -11px;
+  user-select: none;
+}
+
+.select-player-1::after {
+  right:-23px;
+  bottom: 0;
+  top: 0;
+  content: '';
+  background-color: transparent;
+  width: 0;
+  height: 100%;
+  border-right: 24px solid transparent;
+  border-top: 24px solid #8b0000;
+  position: absolute;
+}
+
+.select-player-2 {
+  background-color: #006400;
+  width: 40%;
+  position: relative;
+  border-radius: 0px 13px 13px 0px;
+  cursor: pointer;
+  right: -12px;
+  user-select: none;
+}
+
+.select-player-2::before {
+  left:-23px;
+  bottom: 0;
+  top: 0;
+  content: '';
+  background-color: transparent;
+  width: 0;
+  height: 100%;
+  border-right: 24px solid #006400;
+  border-top: 24px solid transparent;
+  position: absolute;
+}
+
+/* ----------Analysis Body---------- */
+.analysis-content {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 20px;
+}
+
+.analysis-content-container {
+  margin-left: 5%;
+  margin-right: 5%;
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  justify-content: center;
+  /* border: 1px solid black; */
+}
+
+.analysis-content-text {
+  display: flex;
+  flex-direction: column;
+  margin-top: 5%;
+  margin-left: 5%;
+  margin-right: 5%;
+  width: 100%;
+  height: 500px;
+}
+
+.analysis-content-text table{
+  overflow-y: scroll;
+}
+
+.player1-name {
+  display: flex;
+  justify-content: center;
+  background-color: #6e0000;
+  color: white;
+  font-weight: bolder;
+  width: 375px;
+}
+
+.player2-name {
+  display: flex;
+  justify-content: center;
+  background-color: #015701;
+  color: white;
+  font-weight: bolder;
+  width: 375px;
+
+}

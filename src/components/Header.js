@@ -6,7 +6,6 @@ const Header = () => {
   const id = useLocation().state.id;
   const player1 = useLocation().state.player1;
   const player2 = useLocation().state.player2;
-  console.log("Header use location data: ", data);
 
   return (
     <div className="header">
