@@ -1,0 +1,1 @@
+{"version":3,"file":"getWinners.d.ts","sourceRoot":"","sources":["../../src/utils/getWinners.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,WAAW,EAAE,aAAa,EAAE,aAAa,EAAE,mBAAmB,EAAE,MAAM,UAAU,CAAC;AAI/F,wBAAgB,UAAU,CACxB,OAAO,EAAE,WAAW,EACpB,QAAQ,EAAE,IAAI,CAAC,aAAa,EAAE,SAAS,GAAG,SAAS,CAAC,EACpD,qBAAqB,EAAE,mBAAmB,EAAE,GAC3C,aAAa,EAAE,CA6DjB"}
