@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useContext } from "react";
-import { DataContext } from "../contexts/DataContext";
-import axios from "axios";
+import React, { useEffect, useState, useContext } from 'react';
+import { DataContext } from '../contexts/DataContext';
+import axios from 'axios';
 
 //----------Components----------
-import Items from "../components/Items";
+import Items from '../components/Items';
 
 const List = function (props) {
   //----------Make sure we have access to data----------
@@ -13,13 +13,12 @@ const List = function (props) {
   }
   //----------Fetch matches table from backend----------
   else {
-    console.log("Getting into Else in List");
     useEffect(() => {
       const fetchData = async () => {
-        const axiosGet = await axios.get("/getMatches");
+        const axiosGet = await axios.get('/getMatches');
         setReceivedData(axiosGet.data);
       };
-      const grab = fetchData();
+      fetchData();
     }, []);
   }
 

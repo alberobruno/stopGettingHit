@@ -28,13 +28,13 @@
 2.  Install dependencies
 
 ```sh
-npm install -f
+yarn install
 ```
 
 3.  Run the app
 
 ```sh
-npm run dev
+yarn run dev
 ```
 
 <h2>Contributing</h2>

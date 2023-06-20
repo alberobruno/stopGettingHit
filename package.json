@@ -18,6 +18,7 @@
     "async": "^3.2.4",
     "axios": "^0.27.2",
     "body-parser": "^1.20.0",
+    "carbon-components": "^10.58.3",
     "cors": "^2.8.5",
     "css-loader": "^6.7.2",
     "dotenv": "^16.0.3",
@@ -26,10 +27,12 @@
     "formidable": "^2.0.1",
     "fs": "^0.0.1-security",
     "node-sass": "^8.0.0",
+    "path": "^0.12.7",
     "pg": "^8.7.3",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^6.4.5",
+    "redis": "^4.6.6",
     "style-loader": "^3.3.1",
     "url-loader": "^4.1.1"
   },
@@ -44,7 +47,7 @@
     "isomorphic-fetch": "^3.0.0",
     "nodemon": "^2.0.7",
     "react-hot-loader": "^4.13.1",
-    "sass": "^1.56.1",
+    "sass": "1.51.0",
     "sass-loader": "^13.2.0",
     "webpack": "^5.75.0",
     "webpack-cli": "^4.10.0",
@@ -57,5 +60,6 @@
   "bugs": {
     "url": "https://github.com/alberobruno/stopGettingHit/issues"
   },
-  "homepage": "https://github.com/alberobruno/stopGettingHit#readme"
+  "homepage": "https://github.com/alberobruno/stopGettingHit#readme",
+  "proxy": "http://localhost:3000"
 }

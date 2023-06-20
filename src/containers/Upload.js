@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import List from "./List";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import List from './List';
 
 const Upload = function (props) {
   //----------Dropzone Box Functionality----------
   const dropHandler = (e) => {
     e.preventDefault();
-    document.querySelectorAll(".dropzone--input").forEach((inputElement) => {
-      const dropzoneEl = inputElement.closest(".dropzone");
+    document.querySelectorAll('.dropzone--input').forEach((inputElement) => {
+      const dropzoneEl = inputElement.closest('.dropzone');
       const receivedFiles = e.dataTransfer.files;
-      console.log("Received Files: ", receivedFiles);
+      console.log('Received Files: ', receivedFiles);
       validateFiles(receivedFiles);
       if (receivedFiles.length) {
         inputElement.files = receivedFiles;
@@ -19,12 +19,12 @@ const Upload = function (props) {
     });
   };
   const dropClick = (e) => {
-    document.querySelectorAll(".dropzone--input").forEach((inputElement) => {
-      const dropzoneEl = inputElement.closest(".dropzone");
-      inputElement.addEventListener("change", (e) => {
+    document.querySelectorAll('.dropzone--input').forEach((inputElement) => {
+      const dropzoneEl = inputElement.closest('.dropzone');
+      inputElement.addEventListener('change', (e) => {
         if (inputElement.files.length) {
           updateThumbnail(dropzoneEl, inputElement.files[0]);
-          dropzoneEl.classList.add("dropzone--over");
+          dropzoneEl.classList.add('dropzone--over');
         }
       });
       inputElement.click();
@@ -33,33 +33,33 @@ const Upload = function (props) {
   };
   const dragOverHandler = (e) => {
     e.preventDefault();
-    document.querySelectorAll(".dropzone--input").forEach((inputElement) => {
-      const dropzoneEl = inputElement.closest(".dropzone");
-      dropzoneEl.classList.add("dropzone--over");
+    document.querySelectorAll('.dropzone--input').forEach((inputElement) => {
+      const dropzoneEl = inputElement.closest('.dropzone');
+      dropzoneEl.classList.add('dropzone--over');
     });
   };
   const dragOverEnd = () => {
-    document.querySelectorAll(".dropzone--input").forEach((inputElement) => {
-      const dropzoneEl = inputElement.closest(".dropzone");
-      dropzoneEl.classList.remove("dropzone--over");
+    document.querySelectorAll('.dropzone--input').forEach((inputElement) => {
+      const dropzoneEl = inputElement.closest('.dropzone');
+      dropzoneEl.classList.remove('dropzone--over');
     });
   };
 
   const updateThumbnail = (dropzoneEl, file) => {
-    let thumbnailEl = dropzoneEl.querySelector(".dropzone--thumbnail");
+    let thumbnailEl = dropzoneEl.querySelector('.dropzone--thumbnail');
 
-    if (dropzoneEl.querySelector(".dropzone--prompt")) {
-      dropzoneEl.querySelector(".dropzone--prompt").remove();
+    if (dropzoneEl.querySelector('.dropzone--prompt')) {
+      dropzoneEl.querySelector('.dropzone--prompt').remove();
     }
     if (!thumbnailEl) {
-      thumbnailEl = document.createElement("div");
-      thumbnailEl.classList.add("dropzone--thumbnail");
+      thumbnailEl = document.createElement('div');
+      thumbnailEl.classList.add('dropzone--thumbnail');
       dropzoneEl.appendChild(thumbnailEl);
     }
 
     thumbnailEl.dataset.label = file.name;
 
-    if (file.type.startsWith("image/")) {
+    if (file.type.startsWith('image/')) {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
@@ -72,9 +72,9 @@ const Upload = function (props) {
   const validateFiles = (files) => {
     // console.log("File Type: ", file.name.slice(-3));
     for (let file of files) {
-      if (file.name.slice(-3) !== "slp") {
-        console.log("Incorrect file type...reloading page.");
-        document.querySelector("#dropbox").classList.add("dropzone--over");
+      if (file.name.slice(-3) !== 'slp') {
+        console.log('Incorrect file type...reloading page.');
+        document.querySelector('#dropbox').classList.add('dropzone--over');
         reloadPage();
       }
     }
@@ -82,40 +82,47 @@ const Upload = function (props) {
 
   //----------Validate Uploaded Files----------
   const resetForm = () => {
-    const form = document.querySelector("#dropzoneform");
-    console.log("Form: ", form);
+    const form = document.querySelector('#dropzoneform');
+    console.log('Form: ', form);
     form.reset;
   };
 
   //----------Enable Submit Button----------
   const enableSubmitButton = () => {
-    document.querySelector("#uploadMatchesButton").removeAttribute("disabled");
-    document.querySelector("#clearButton").removeAttribute("disabled");
+    const uploadButton = document.querySelector('#uploadMatchesButton');
+    // const clearButton = document.querySelector('#clearButton');
+    if (uploadButton) {
+      uploadButton.removeAttribute('disabled');
+    }
+    // if (clearButton) {
+    //   clearButton.removeAttribute('disabled');
+    // }
   };
+
   //----------Disable Submit Button----------
   const disableSubmitButton = () => {
-    document.querySelector("#uploadMatchesButton").addAttribute("disabled");
-    document.querySelector("#clearButton").addAttribute("disabled");
+    document.querySelector('#uploadMatchesButton').addAttribute('disabled');
+    // document.querySelector('#clearButton').addAttribute('disabled');
   };
 
   //----------Upload Button Functionality----------
-  const upload = async () => {
-    const inputData = $("#uploadInput")[0].value;
-    // console.log("Input Data: ", inputData);
-    try {
-      const json = await JSON.parse(inputData);
-      console.log("Input Accepted");
-      const fetchData = async () => {
-        const axiosPost = await axios.post("/upload");
-        const axiosGet = await axios.get("/getMatches");
-        setData(axiosGet.data);
-        document.getElementById("uploadInput").value = "";
-      };
-      const grab = fetchData();
-    } catch (e) {
-      console.log("Invalid input: Must be JSON");
-    }
-  };
+  // const upload = async () => {
+  //   const inputData = $('#uploadInput')[0].value;
+  //   // console.log("Input Data: ", inputData);
+  //   try {
+  //     const json = await JSON.parse(inputData);
+  //     console.log('Input Accepted');
+  //     const fetchData = async () => {
+  //       const axiosPost = await axios.post('/upload');
+  //       const axiosGet = await axios.get('/getMatches');
+  //       setData(axiosGet.data);
+  //       document.getElementById('uploadInput').value = '';
+  //     };
+  //     const grab = fetchData();
+  //   } catch (e) {
+  //     console.log('Invalid input: Must be JSON');
+  //   }
+  // };
 
   //----------Reload Button Functionality----------
   const reloadPage = () => window.location.reload();
@@ -123,7 +130,10 @@ const Upload = function (props) {
   //----------Render HTML----------
   return (
     <>
-      <h1 className="text-center mt-5" style={{ paddingTop: "50px" }}>
+      {/* <button onClick={() => console.log(path.resolve(__dirname))}>
+        Button
+      </button> */}
+      <h1 className="text-center mt-5" style={{ paddingTop: '50px' }}>
         Stop Getting Hit
       </h1>
       <div>

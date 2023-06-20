@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const AnalysisHeading = function (props) {
   //----------Make sure we have access to data----------
