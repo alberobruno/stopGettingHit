@@ -1,0 +1,261 @@
+var characters = {
+	"0": {
+	name: "Captain Falcon",
+	shortName: "Falcon",
+	colors: [
+		"Black",
+		"Red",
+		"White",
+		"Green",
+		"Blue"
+	]
+},
+	"1": {
+	name: "Donkey Kong",
+	shortName: "DK",
+	colors: [
+		"Black",
+		"Red",
+		"Blue",
+		"Green"
+	]
+},
+	"2": {
+	name: "Fox",
+	colors: [
+		"Red",
+		"Blue",
+		"Green"
+	]
+},
+	"3": {
+	name: "Mr. Game & Watch",
+	shortName: "G&W",
+	colors: [
+		"Red",
+		"Blue",
+		"Green"
+	]
+},
+	"4": {
+	name: "Kirby",
+	colors: [
+		"Yellow",
+		"Blue",
+		"Red",
+		"Green",
+		"White"
+	]
+},
+	"5": {
+	name: "Bowser",
+	colors: [
+		"Red",
+		"Blue",
+		"Black"
+	]
+},
+	"6": {
+	name: "Link",
+	colors: [
+		"Red",
+		"Blue",
+		"Black",
+		"White"
+	]
+},
+	"7": {
+	name: "Luigi",
+	colors: [
+		"White",
+		"Blue",
+		"Red"
+	]
+},
+	"8": {
+	name: "Mario",
+	colors: [
+		"Yellow",
+		"Black",
+		"Blue",
+		"Green"
+	]
+},
+	"9": {
+	name: "Marth",
+	colors: [
+		"Red",
+		"Green",
+		"Black",
+		"White"
+	]
+},
+	"10": {
+	name: "Mewtwo",
+	colors: [
+		"Red",
+		"Blue",
+		"Green"
+	]
+},
+	"11": {
+	name: "Ness",
+	colors: [
+		"Yellow",
+		"Blue",
+		"Green"
+	]
+},
+	"12": {
+	name: "Peach",
+	colors: [
+		"Daisy",
+		"White",
+		"Blue",
+		"Green"
+	]
+},
+	"13": {
+	name: "Pikachu",
+	colors: [
+		"Red",
+		"Party Hat",
+		"Cowboy Hat"
+	]
+},
+	"14": {
+	name: "Ice Climbers",
+	shortName: "ICs",
+	colors: [
+		"Green",
+		"Orange",
+		"Red"
+	]
+},
+	"15": {
+	name: "Jigglypuff",
+	shortName: "Puff",
+	colors: [
+		"Red",
+		"Blue",
+		"Headband",
+		"Crown"
+	]
+},
+	"16": {
+	name: "Samus",
+	colors: [
+		"Pink",
+		"Black",
+		"Green",
+		"Purple"
+	]
+},
+	"17": {
+	name: "Yoshi",
+	colors: [
+		"Red",
+		"Blue",
+		"Yellow",
+		"Pink",
+		"Cyan"
+	]
+},
+	"18": {
+	name: "Zelda",
+	colors: [
+		"Red",
+		"Blue",
+		"Green",
+		"White"
+	]
+},
+	"19": {
+	name: "Sheik",
+	colors: [
+		"Red",
+		"Blue",
+		"Green",
+		"White"
+	]
+},
+	"20": {
+	name: "Falco",
+	colors: [
+		"Red",
+		"Blue",
+		"Green"
+	]
+},
+	"21": {
+	name: "Young Link",
+	shortName: "YLink",
+	colors: [
+		"Red",
+		"Blue",
+		"White",
+		"Black"
+	]
+},
+	"22": {
+	name: "Dr. Mario",
+	shortName: "Doc",
+	colors: [
+		"Red",
+		"Blue",
+		"Green",
+		"Black"
+	]
+},
+	"23": {
+	name: "Roy",
+	colors: [
+		"Red",
+		"Blue",
+		"Green",
+		"Yellow"
+	]
+},
+	"24": {
+	name: "Pichu",
+	colors: [
+		"Red",
+		"Blue",
+		"Green"
+	]
+},
+	"25": {
+	name: "Ganondorf",
+	shortName: "Ganon",
+	colors: [
+		"Red",
+		"Blue",
+		"Green",
+		"Purple"
+	]
+},
+	"26": {
+	name: "Master Hand"
+},
+	"27": {
+	name: "Wireframe (Male)"
+},
+	"28": {
+	name: "Wireframe (Female)"
+},
+	"29": {
+	name: "Gigabowser"
+},
+	"30": {
+	name: "Crazy Hand"
+},
+	"31": {
+	name: "Sandbag"
+},
+	"32": {
+	name: "Popo"
+}
+};
+
+export { characters as default };
+//# sourceMappingURL=characters.esm.js.map

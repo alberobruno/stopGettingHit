@@ -104,9 +104,13 @@ const getSourceForCommonJsExternal = moduleAndSpecifiers => {
 
 /**
  * @param {string|string[]} moduleAndSpecifiers the module request
+ * @param {string} importMetaName import.meta name
  * @returns {SourceData} the generated source
  */
-const getSourceForCommonJsExternalInNodeModule = moduleAndSpecifiers => {
+const getSourceForCommonJsExternalInNodeModule = (
+	moduleAndSpecifiers,
+	importMetaName
+) => {
 	const chunkInitFragments = [
 		new InitFragment(
 			'import { createRequire as __WEBPACK_EXTERNAL_createRequire } from "module";\n',
@@ -117,18 +121,18 @@ const getSourceForCommonJsExternalInNodeModule = moduleAndSpecifiers => {
 	];
 	if (!Array.isArray(moduleAndSpecifiers)) {
 		return {
-			expression: `__WEBPACK_EXTERNAL_createRequire(import.meta.url)(${JSON.stringify(
+			chunkInitFragments,
+			expression: `__WEBPACK_EXTERNAL_createRequire(${importMetaName}.url)(${JSON.stringify(
 				moduleAndSpecifiers
-			)})`,
-			chunkInitFragments
+			)})`
 		};
 	}
 	const moduleName = moduleAndSpecifiers[0];
 	return {
-		expression: `__WEBPACK_EXTERNAL_createRequire(import.meta.url)(${JSON.stringify(
+		chunkInitFragments,
+		expression: `__WEBPACK_EXTERNAL_createRequire(${importMetaName}.url)(${JSON.stringify(
 			moduleName
-		)})${propertyAccess(moduleAndSpecifiers, 1)}`,
-		chunkInitFragments
+		)})${propertyAccess(moduleAndSpecifiers, 1)}`
 	};
 };
 
@@ -380,6 +384,11 @@ const getSourceForDefaultCase = (optional, request, runtimeTemplate) => {
 };
 
 class ExternalModule extends Module {
+	/**
+	 * @param {string | string[] | Record<string, string | string[]>} request request
+	 * @param {TODO} type type
+	 * @param {string} userRequest user request
+	 */
 	constructor(request, type, userRequest) {
 		super(JAVASCRIPT_MODULE_TYPE_DYNAMIC, null);
 
@@ -557,7 +566,10 @@ class ExternalModule extends Module {
 				return getSourceForCommonJsExternal(request);
 			case "node-commonjs":
 				return this.buildInfo.module
-					? getSourceForCommonJsExternalInNodeModule(request)
+					? getSourceForCommonJsExternalInNodeModule(
+							request,
+							runtimeTemplate.outputOptions.importMetaName
+					  )
 					: getSourceForCommonJsExternal(request);
 			case "amd":
 			case "amd-require":

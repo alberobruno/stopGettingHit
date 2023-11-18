@@ -1,0 +1,9 @@
+@font-face {
+  font-family: 'IBM Plex Sans JP';
+  font-style: normal;
+  font-weight: 450;
+  src: local('IBM Plex Sans JP Text'),
+    local('IBMPlexSansJP-Text'),
+    url('#{$font-prefix}/IBM-Plex-Sans-JP/fonts/split/woff2/hinted/IBMPlexSansJP-Text-029.woff2') format('woff2');
+    unicode-range: U+7370, U+7375, U+7377-7378, U+737A-737B, U+7396, U+73B3, U+73BB, U+73BD, U+73C9-73CA, U+73CE, U+73D2, U+73D6, U+73DE, U+73E3, U+73E5, U+73EA, U+73EE, U+73F1, U+73F5, U+73F8, U+7405, U+7407, U+7426, U+7429-742A, U+742E, U+7433, U+743A, U+743F, U+7441, U+7455, U+7459-745A, U+745C, U+745F, U+7462-7464, U+7469-746A, U+746F-7470, U+7473, U+7476, U+747E, U+7489, U+748B, U+749E-749F, U+74A2, U+74BD, U+74CA, U+74CF, U+74D4, U+74E0, U+74E3, U+74E7, U+74E9, U+74EE, U+74F0-74F2, U+74F7-74F8, U+7501, U+7503-7505, U+750C-750E, U+7511;
+}

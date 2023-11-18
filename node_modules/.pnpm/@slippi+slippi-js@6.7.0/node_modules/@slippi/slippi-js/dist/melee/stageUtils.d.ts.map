@@ -1,0 +1,1 @@
+{"version":3,"file":"stageUtils.d.ts","sourceRoot":"","sources":["../../src/melee/stageUtils.ts"],"names":[],"mappings":"AAEA,MAAM,WAAW,SAAS;IACxB,EAAE,EAAE,MAAM,CAAC;IACX,IAAI,EAAE,MAAM,CAAC;CACd;AAED,eAAO,MAAM,YAAY,EAAE,SAG1B,CAAC;AAIF,wBAAgB,YAAY,CAAC,OAAO,EAAE,MAAM,GAAG,SAAS,CASvD;AAED,wBAAgB,YAAY,CAAC,OAAO,EAAE,MAAM,GAAG,MAAM,CAGpD"}

@@ -107,6 +107,11 @@ const encodeDataUri = (encoding, source) => {
 	return encodedContent;
 };
 
+/**
+ * @param {string} encoding encoding
+ * @param {string} content content
+ * @returns {Buffer} decoded content
+ */
 const decodeDataUriContent = (encoding, content) => {
 	const isBase64 = encoding === "base64";
 
@@ -176,6 +181,7 @@ class AssetGenerator extends Generator {
 			);
 		}
 
+		/** @type {string | boolean | undefined} */
 		let mimeType = this.dataUrlOptions.mimetype;
 		if (mimeType === undefined) {
 			const ext = path.extname(module.nameForCondition());
@@ -208,7 +214,7 @@ class AssetGenerator extends Generator {
 			);
 		}
 
-		return mimeType;
+		return /** @type {string} */ (mimeType);
 	}
 
 	/**
@@ -230,10 +236,10 @@ class AssetGenerator extends Generator {
 	) {
 		switch (type) {
 			case ASSET_MODULE_TYPE:
-				return module.originalSource();
+				return /** @type {Source} */ (module.originalSource());
 			default: {
 				let content;
-				const originalSource = module.originalSource();
+				const originalSource = /** @type {Source} */ (module.originalSource());
 				if (module.buildInfo.dataUrl) {
 					let encodedSource;
 					if (typeof this.dataUrlOptions === "function") {

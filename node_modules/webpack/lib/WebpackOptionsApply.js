@@ -368,7 +368,9 @@ class WebpackOptionsApply extends OptionsApply {
 			const NodeStuffPlugin = require("./NodeStuffPlugin");
 			new NodeStuffPlugin(options.node).apply(compiler);
 		}
-		new APIPlugin().apply(compiler);
+		new APIPlugin({
+			module: options.output.module
+		}).apply(compiler);
 		new ExportsInfoApiPlugin().apply(compiler);
 		new WebpackIsIncludedPlugin().apply(compiler);
 		new ConstPlugin().apply(compiler);
@@ -564,7 +566,7 @@ class WebpackOptionsApply extends OptionsApply {
 			for (const minimizer of options.optimization.minimizer) {
 				if (typeof minimizer === "function") {
 					minimizer.call(compiler, compiler);
-				} else if (minimizer !== "...") {
+				} else if (minimizer !== "..." && minimizer) {
 					minimizer.apply(compiler);
 				}
 			}
@@ -657,7 +659,8 @@ class WebpackOptionsApply extends OptionsApply {
 									maxAge: cacheOptions.maxAge,
 									profile: cacheOptions.profile,
 									allowCollectingMemory: cacheOptions.allowCollectingMemory,
-									compression: cacheOptions.compression
+									compression: cacheOptions.compression,
+									readonly: cacheOptions.readonly
 								}),
 								cacheOptions.idleTimeout,
 								cacheOptions.idleTimeoutForInitialStore,

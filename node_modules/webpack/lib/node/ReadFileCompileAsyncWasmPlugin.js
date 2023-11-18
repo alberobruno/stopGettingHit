@@ -10,6 +10,7 @@ const RuntimeGlobals = require("../RuntimeGlobals");
 const Template = require("../Template");
 const AsyncWasmLoadingRuntimeModule = require("../wasm-async/AsyncWasmLoadingRuntimeModule");
 
+/** @typedef {import("../Chunk")} Chunk */
 /** @typedef {import("../Compiler")} Compiler */
 
 class ReadFileCompileAsyncWasmPlugin {
@@ -27,6 +28,10 @@ class ReadFileCompileAsyncWasmPlugin {
 			"ReadFileCompileAsyncWasmPlugin",
 			compilation => {
 				const globalWasmLoading = compilation.outputOptions.wasmLoading;
+				/**
+				 * @param {Chunk} chunk chunk
+				 * @returns {boolean} true, if wasm loading is enabled for the chunk
+				 */
 				const isEnabledForChunk = chunk => {
 					const options = chunk.getEntryOptions();
 					const wasmLoading =
@@ -35,12 +40,16 @@ class ReadFileCompileAsyncWasmPlugin {
 							: globalWasmLoading;
 					return wasmLoading === this._type;
 				};
+				const { importMetaName } = compilation.outputOptions;
+				/**
+				 * @type {(path: string) => string}
+				 */
 				const generateLoadBinaryCode = this._import
 					? path =>
 							Template.asString([
 								"Promise.all([import('fs'), import('url')]).then(([{ readFile }, { URL }]) => new Promise((resolve, reject) => {",
 								Template.indent([
-									`readFile(new URL(${path}, import.meta.url), (err, buffer) => {`,
+									`readFile(new URL(${path}, ${importMetaName}.url), (err, buffer) => {`,
 									Template.indent([
 										"if (err) return reject(err);",
 										"",

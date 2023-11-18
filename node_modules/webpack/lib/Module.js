@@ -107,6 +107,12 @@ const makeSerializable = require("./util/makeSerializable");
  */
 
 /** @typedef {KnownBuildMeta & Record<string, any>} BuildMeta */
+/** @typedef {Record<string, any>} BuildInfo */
+
+/**
+ * @typedef {Object} FactoryMeta
+ * @property {boolean=} sideEffectFree
+ */
 
 const EMPTY_RESOLVE_OPTIONS = {};
 
@@ -116,6 +122,11 @@ const DEFAULT_TYPES_UNKNOWN = new Set(["unknown"]);
 const DEFAULT_TYPES_JS = new Set(["javascript"]);
 
 const deprecatedNeedRebuild = util.deprecate(
+	/**
+	 * @param {Module} module the module
+	 * @param {NeedBuildContext} context context info
+	 * @returns {boolean} true, when rebuild is needed
+	 */
 	(module, context) => {
 		return module.needRebuild(
 			context.fileSystemInfo.getDeprecatedFileTimestamps(),
@@ -131,13 +142,13 @@ const deprecatedNeedRebuild = util.deprecate(
 class Module extends DependenciesBlock {
 	/**
 	 * @param {ModuleTypes | ""} type the module type, when deserializing the type is not known and is an empty string
-	 * @param {string=} context an optional context
-	 * @param {string=} layer an optional layer in which the module is
+	 * @param {(string | null)=} context an optional context
+	 * @param {(string | null)=} layer an optional layer in which the module is
 	 */
 	constructor(type, context = null, layer = null) {
 		super();
 
-		/** @type {ModuleTypes | ""} */
+		/** @type {ModuleTypes} */
 		this.type = type;
 		/** @type {string | null} */
 		this.context = context;
@@ -151,9 +162,9 @@ class Module extends DependenciesBlock {
 		this.debugId = debugId++;
 
 		// Info from Factory
-		/** @type {ResolveOptions} */
+		/** @type {ResolveOptions | undefined} */
 		this.resolveOptions = EMPTY_RESOLVE_OPTIONS;
-		/** @type {object | undefined} */
+		/** @type {FactoryMeta | undefined} */
 		this.factoryMeta = undefined;
 		// TODO refactor this -> options object filled from Factory
 		// TODO webpack 6: use an enum
@@ -167,9 +178,9 @@ class Module extends DependenciesBlock {
 		this._warnings = undefined;
 		/** @type {WebpackError[] | undefined} */
 		this._errors = undefined;
-		/** @type {BuildMeta} */
+		/** @type {BuildMeta | undefined} */
 		this.buildMeta = undefined;
-		/** @type {Record<string, any>} */
+		/** @type {BuildInfo | undefined} */
 		this.buildInfo = undefined;
 		/** @type {Dependency[] | undefined} */
 		this.presentationalDependencies = undefined;
@@ -331,6 +342,10 @@ class Module extends DependenciesBlock {
 		);
 	}
 
+	/**
+	 * @param {Chunk} chunk the chunk
+	 * @returns {boolean} true, when the module was added
+	 */
 	addChunk(chunk) {
 		const chunkGraph = ChunkGraph.getChunkGraphForModule(
 			this,
@@ -342,6 +357,10 @@ class Module extends DependenciesBlock {
 		return true;
 	}
 
+	/**
+	 * @param {Chunk} chunk the chunk
+	 * @returns {void}
+	 */
 	removeChunk(chunk) {
 		return ChunkGraph.getChunkGraphForModule(
 			this,
@@ -350,6 +369,10 @@ class Module extends DependenciesBlock {
 		).disconnectChunkAndModule(chunk, this);
 	}
 
+	/**
+	 * @param {Chunk} chunk the chunk
+	 * @returns {boolean} true, when the module is in the chunk
+	 */
 	isInChunk(chunk) {
 		return ChunkGraph.getChunkGraphForModule(
 			this,
@@ -421,7 +444,7 @@ class Module extends DependenciesBlock {
 
 	/**
 	 * @param {ModuleGraph} moduleGraph the module graph
-	 * @param {boolean} strict the importing module is strict
+	 * @param {boolean | undefined} strict the importing module is strict
 	 * @returns {"namespace" | "default-only" | "default-with-named" | "dynamic"} export type
 	 * "namespace": Exports is already a namespace object. namespace = exports.
 	 * "dynamic": Check at runtime if __esModule is set. When set: namespace = { ...exports, default: exports }. When not set: namespace = { default: exports }.
@@ -435,7 +458,7 @@ class Module extends DependenciesBlock {
 			case "namespace":
 				return "namespace";
 			case "default":
-				switch (this.buildMeta.defaultObject) {
+				switch (/** @type {BuildMeta} */ (this.buildMeta).defaultObject) {
 					case "redirect":
 						return "default-with-named";
 					case "redirect-warn":
@@ -447,7 +470,7 @@ class Module extends DependenciesBlock {
 				if (strict) return "default-with-named";
 				// Try to figure out value of __esModule by following reexports
 				const handleDefault = () => {
-					switch (this.buildMeta.defaultObject) {
+					switch (/** @type {BuildMeta} */ (this.buildMeta).defaultObject) {
 						case "redirect":
 						case "redirect-warn":
 							return "default-with-named";
@@ -664,7 +687,7 @@ class Module extends DependenciesBlock {
 		] of moduleGraph.getIncomingConnectionsByOriginModule(this)) {
 			if (!connections.some(c => c.isTargetActive(chunk.runtime))) continue;
 			for (const originChunk of chunkGraph.getModuleChunksIterable(
-				fromModule
+				/** @type {Module} */ (fromModule)
 			)) {
 				// return true if module this is not reachable from originChunk when ignoring chunk
 				if (!this.isAccessibleInChunk(chunkGraph, originChunk, chunk))

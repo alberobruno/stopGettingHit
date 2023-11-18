@@ -61,6 +61,12 @@ const CSS_MODULE_TYPE_GLOBAL = "css/global";
 const CSS_MODULE_TYPE_MODULE = "css/module";
 
 /**
+ * @type {Readonly<"css/auto">}
+ * This is the module type used for CSS files, the module will be parsed as CSS modules if it's filename contains `.module.` or `.modules.`.
+ */
+const CSS_MODULE_TYPE_AUTO = "css/auto";
+
+/**
  * @type {Readonly<"asset">}
  * This is the module type used for automatically choosing between `asset/inline`, `asset/resource` based on asset size limit (8096).
  */
@@ -135,7 +141,8 @@ const WEBPACK_MODULE_TYPE_LAZY_COMPILATION_PROXY = "lazy-compilation-proxy";
 /** @typedef {"css" | "css/global" | "css/module"} CSSModuleTypes */
 /** @typedef {"asset" | "asset/inline" | "asset/resource" | "asset/source" | "asset/raw-data-url"} AssetModuleTypes */
 /** @typedef {"runtime" | "fallback-module" | "remote-module" | "provide-module" | "consume-shared-module" | "lazy-compilation-proxy"} WebpackModuleTypes */
-/** @typedef {JavaScriptModuleTypes | JSONModuleType | WebAssemblyModuleTypes | CSSModuleTypes | AssetModuleTypes | WebpackModuleTypes} ModuleTypes */
+/** @typedef {string} UnknownModuleTypes */
+/** @typedef {JavaScriptModuleTypes | JSONModuleType | WebAssemblyModuleTypes | CSSModuleTypes | AssetModuleTypes | WebpackModuleTypes | UnknownModuleTypes} ModuleTypes */
 
 exports.ASSET_MODULE_TYPE = ASSET_MODULE_TYPE;
 exports.ASSET_MODULE_TYPE_RAW_DATA_URL = ASSET_MODULE_TYPE_RAW_DATA_URL;
@@ -151,6 +158,7 @@ exports.WEBASSEMBLY_MODULE_TYPE_SYNC = WEBASSEMBLY_MODULE_TYPE_SYNC;
 exports.CSS_MODULE_TYPE = CSS_MODULE_TYPE;
 exports.CSS_MODULE_TYPE_GLOBAL = CSS_MODULE_TYPE_GLOBAL;
 exports.CSS_MODULE_TYPE_MODULE = CSS_MODULE_TYPE_MODULE;
+exports.CSS_MODULE_TYPE_AUTO = CSS_MODULE_TYPE_AUTO;
 exports.WEBPACK_MODULE_TYPE_RUNTIME = WEBPACK_MODULE_TYPE_RUNTIME;
 exports.WEBPACK_MODULE_TYPE_FALLBACK = WEBPACK_MODULE_TYPE_FALLBACK;
 exports.WEBPACK_MODULE_TYPE_REMOTE = WEBPACK_MODULE_TYPE_REMOTE;

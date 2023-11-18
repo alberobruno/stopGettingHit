@@ -121,7 +121,7 @@
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.next = 2;
-                return render("\n@import '../typography';\n\n$t: test(rem(16px));\n$t: test(em(16px));\n");
+                return render("\n@import '../typography';\n\n$t: test(to-rem(16px));\n$t: test(em(16px));\n");
 
               case 2:
                 _yield$render3 = _context3.sent;

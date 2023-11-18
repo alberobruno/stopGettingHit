@@ -14,6 +14,7 @@ const compileBooleanMatcher = require("../util/compileBooleanMatcher");
 const { chunkHasCss } = require("./CssModulesPlugin");
 
 /** @typedef {import("../Chunk")} Chunk */
+/** @typedef {import("../ChunkGraph")} ChunkGraph */
 /** @typedef {import("../Compilation").RuntimeRequirementsContext} RuntimeRequirementsContext */
 
 /**
@@ -55,7 +56,7 @@ class CssLoadingRuntimeModule extends RuntimeModule {
 	}
 
 	/**
-	 * @returns {string} runtime code
+	 * @returns {string | null} runtime code
 	 */
 	generate() {
 		const { compilation, chunk, _runtimeRequirements } = this;
@@ -67,10 +68,15 @@ class CssLoadingRuntimeModule extends RuntimeModule {
 				uniqueName,
 				chunkLoadTimeout: loadTimeout
 			}
-		} = compilation;
+		} = /** @type {Compilation} */ (compilation);
 		const fn = RuntimeGlobals.ensureChunkHandlers;
 		const conditionMap = chunkGraph.getChunkConditionMap(
-			chunk,
+			/** @type {Chunk} */ (chunk),
+			/**
+			 * @param {Chunk} chunk the chunk
+			 * @param {ChunkGraph} chunkGraph the chunk graph
+			 * @returns {boolean} true, if the chunk has css
+			 */
 			(chunk, chunkGraph) =>
 				!!chunkGraph.getChunkModulesIterableBySourceType(chunk, "css")
 		);
@@ -87,7 +93,7 @@ class CssLoadingRuntimeModule extends RuntimeModule {
 		const initialChunkIdsWithCss = new Set();
 		/** @type {Set<number | string | null>} */
 		const initialChunkIdsWithoutCss = new Set();
-		for (const c of chunk.getAllInitialChunks()) {
+		for (const c of /** @type {Chunk} */ (chunk).getAllInitialChunks()) {
 			(chunkHasCss(c, chunkGraph)
 				? initialChunkIdsWithCss
 				: initialChunkIdsWithoutCss
@@ -98,8 +104,9 @@ class CssLoadingRuntimeModule extends RuntimeModule {
 			return null;
 		}
 
-		const { createStylesheet } =
-			CssLoadingRuntimeModule.getCompilationHooks(compilation);
+		const { createStylesheet } = CssLoadingRuntimeModule.getCompilationHooks(
+			/** @type {Compilation} */ (compilation)
+		);
 
 		const stateExpression = withHmr
 			? `${RuntimeGlobals.hmrRuntimeStatePrefix}_css`
@@ -128,6 +135,14 @@ class CssLoadingRuntimeModule extends RuntimeModule {
 
 		/** @type {(str: string) => number} */
 		const cc = str => str.charCodeAt(0);
+		const name = uniqueName
+			? runtimeTemplate.concatenation(
+					"--webpack-",
+					{ expr: "uniqueName" },
+					"-",
+					{ expr: "chunkId" }
+			  )
+			: runtimeTemplate.concatenation("--webpack-", { expr: "chunkId" });
 
 		return Template.asString([
 			"// object to store loaded and loading chunks",
@@ -150,18 +165,27 @@ class CssLoadingRuntimeModule extends RuntimeModule {
 				[
 					`var data, token = "", token2, exports = {}, exportsWithId = [], exportsWithDashes = [], ${
 						withHmr ? "moduleIds = [], " : ""
-					}i = 0, cc = 1;`,
-					"try { if(!link) link = loadStylesheet(chunkId); data = link.sheet.cssRules; data = data[data.length - 1].style; } catch(e) { data = getComputedStyle(document.head); }",
-					`data = data.getPropertyValue(${
-						uniqueName
-							? runtimeTemplate.concatenation(
-									"--webpack-",
-									{ expr: "uniqueName" },
-									"-",
-									{ expr: "chunkId" }
-							  )
-							: runtimeTemplate.concatenation("--webpack-", { expr: "chunkId" })
-					});`,
+					}name = ${name}, i = 0, cc = 1;`,
+					"try {",
+					Template.indent([
+						"if(!link) link = loadStylesheet(chunkId);",
+						// `link.sheet.rules` for legacy browsers
+						"var cssRules = link.sheet.cssRules || link.sheet.rules;",
+						"var j = cssRules.length - 1;",
+						"while(j > -1 && !data) {",
+						Template.indent([
+							"var style = cssRules[j--].style;",
+							"if(!style) continue;",
+							`data = style.getPropertyValue(name);`
+						]),
+						"}"
+					]),
+					"}catch(e){}",
+					"if(!data) {",
+					Template.indent([
+						"data = getComputedStyle(document.head).getPropertyValue(name);"
+					]),
+					"}",
 					"if(!data) return [];",
 					"for(; cc; i++) {",
 					Template.indent([
@@ -239,7 +263,7 @@ class CssLoadingRuntimeModule extends RuntimeModule {
 					"if(!link) {",
 					Template.indent([
 						"needAttach = true;",
-						createStylesheet.call(code, this.chunk)
+						createStylesheet.call(code, /** @type {Chunk} */ (this.chunk))
 					]),
 					"}",
 					`var onLinkComplete = ${runtimeTemplate.basicFunction(

@@ -38,15 +38,15 @@ class RuntimeModule extends Module {
 		this.stage = stage;
 		this.buildMeta = {};
 		this.buildInfo = {};
-		/** @type {Compilation} */
+		/** @type {Compilation | undefined} */
 		this.compilation = undefined;
-		/** @type {Chunk} */
+		/** @type {Chunk | undefined} */
 		this.chunk = undefined;
-		/** @type {ChunkGraph} */
+		/** @type {ChunkGraph | undefined} */
 		this.chunkGraph = undefined;
 		this.fullHash = false;
 		this.dependentHash = false;
-		/** @type {string} */
+		/** @type {string | undefined} */
 		this._cachedGeneratedCode = undefined;
 	}
 
@@ -117,7 +117,7 @@ class RuntimeModule extends Module {
 				hash.update(this.getGeneratedCode());
 			}
 		} catch (err) {
-			hash.update(err.message);
+			hash.update(/** @type {Error} */ (err).message);
 		}
 		super.updateHash(hash, context);
 	}
@@ -166,7 +166,7 @@ class RuntimeModule extends Module {
 	/* istanbul ignore next */
 	/**
 	 * @abstract
-	 * @returns {string} runtime code
+	 * @returns {string | null} runtime code
 	 */
 	generate() {
 		const AbstractMethodError = require("./AbstractMethodError");
@@ -174,11 +174,11 @@ class RuntimeModule extends Module {
 	}
 
 	/**
-	 * @returns {string} runtime code
+	 * @returns {string | null} runtime code
 	 */
 	getGeneratedCode() {
 		if (this._cachedGeneratedCode) {
-			return this._cachedGeneratedCode;
+			return /** @type {string | null} */ (this._cachedGeneratedCode);
 		}
 		return (this._cachedGeneratedCode = this.generate());
 	}

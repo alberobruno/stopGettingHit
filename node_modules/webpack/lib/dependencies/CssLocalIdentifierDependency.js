@@ -75,6 +75,11 @@ class CssLocalIdentifierDependency extends NullDependency {
 	}
 }
 
+/**
+ * @param {string} str string
+ * @param {string | boolean} omitUnderscore true if you need to omit underscore
+ * @returns {string} escaped css identifier
+ */
 const escapeCssIdentifier = (str, omitUnderscore) => {
 	const escaped = `${str}`.replace(
 		// cspell:word uffff
@@ -104,6 +109,9 @@ CssLocalIdentifierDependency.Template = class CssLocalIdentifierDependencyTempla
 		const used = moduleGraph
 			.getExportInfo(module, dep.name)
 			.getUsedName(dep.name, runtime);
+
+		if (!used) return;
+
 		const moduleId = chunkGraph.getModuleId(module);
 		const identifier =
 			dep.prefix +

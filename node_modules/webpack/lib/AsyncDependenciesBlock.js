@@ -21,9 +21,9 @@ const makeSerializable = require("./util/makeSerializable");
 
 class AsyncDependenciesBlock extends DependenciesBlock {
 	/**
-	 * @param {ChunkGroupOptions & { entryOptions?: EntryOptions }} groupOptions options for the group
-	 * @param {DependencyLocation=} loc the line of code
-	 * @param {string=} request the request
+	 * @param {(ChunkGroupOptions & { entryOptions?: EntryOptions }) | null} groupOptions options for the group
+	 * @param {(DependencyLocation | null)=} loc the line of code
+	 * @param {(string | null)=} request the request
 	 */
 	constructor(groupOptions, loc, request) {
 		super();
@@ -39,14 +39,14 @@ class AsyncDependenciesBlock extends DependenciesBlock {
 	}
 
 	/**
-	 * @returns {string} The name of the chunk
+	 * @returns {string | undefined} The name of the chunk
 	 */
 	get chunkName() {
 		return this.groupOptions.name;
 	}
 
 	/**
-	 * @param {string} value The new chunk name
+	 * @param {string | undefined} value The new chunk name
 	 * @returns {void}
 	 */
 	set chunkName(value) {

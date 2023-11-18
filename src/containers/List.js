@@ -1,26 +1,26 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { DataContext } from '../contexts/DataContext';
-import axios from 'axios';
+import React, { useEffect, useState, useContext } from "react";
+import { DataContext } from "../contexts/DataContext";
+import axios from "axios";
 
 //----------Components----------
-import Items from '../components/Items';
+import Items from "../components/Items";
 
-const List = function (props) {
+const List = function () {
   //----------Make sure we have access to data----------
   const { receivedData, setReceivedData } = useContext(DataContext);
+  const [fetched, setFetched] = useState(false);
 
-  if (false) {
-  }
   //----------Fetch matches table from backend----------
-  else {
-    useEffect(() => {
+  useEffect(() => {
+    if (!fetched) {
+      setFetched(true);
       const fetchData = async () => {
-        const axiosGet = await axios.get('/getMatches');
+        const axiosGet = await axios.get("/getMatches");
         setReceivedData(axiosGet.data);
       };
       fetchData();
-    }, []);
-  }
+    }
+  }, []);
 
   //----------For each body, loop through data and populate----------
   if (receivedData) {

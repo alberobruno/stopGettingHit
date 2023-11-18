@@ -10,16 +10,18 @@ const Template = require("../Template");
 const JavascriptModulesPlugin = require("../javascript/JavascriptModulesPlugin");
 const { getUndoPath } = require("../util/identifier");
 
+/** @typedef {import("../Compilation")} Compilation */
+
 class AutoPublicPathRuntimeModule extends RuntimeModule {
 	constructor() {
 		super("publicPath", RuntimeModule.STAGE_BASIC);
 	}
 
 	/**
-	 * @returns {string} runtime code
+	 * @returns {string | null} runtime code
 	 */
 	generate() {
-		const { compilation } = this;
+		const compilation = /** @type {Compilation} */ (this.compilation);
 		const { scriptType, importMetaName, path } = compilation.outputOptions;
 		const chunkName = compilation.getPath(
 			JavascriptModulesPlugin.getChunkFilenameTemplate(
@@ -31,7 +33,11 @@ class AutoPublicPathRuntimeModule extends RuntimeModule {
 				contentHashType: "javascript"
 			}
 		);
-		const undoPath = getUndoPath(chunkName, path, false);
+		const undoPath = getUndoPath(
+			chunkName,
+			/** @type {string} */ (path),
+			false
+		);
 
 		return Template.asString([
 			"var scriptUrl;",

@@ -8,9 +8,11 @@ const RuntimeGlobals = require("../RuntimeGlobals");
 const Template = require("../Template");
 const HelperRuntimeModule = require("./HelperRuntimeModule");
 
+/** @typedef {import("../Compilation")} Compilation */
+
 class GetTrustedTypesPolicyRuntimeModule extends HelperRuntimeModule {
 	/**
-	 * @param {Set<string>} runtimeRequirements runtime requirements
+	 * @param {ReadonlySet<string>} runtimeRequirements runtime requirements
 	 */
 	constructor(runtimeRequirements) {
 		super("trusted types policy");
@@ -18,10 +20,10 @@ class GetTrustedTypesPolicyRuntimeModule extends HelperRuntimeModule {
 	}
 
 	/**
-	 * @returns {string} runtime code
+	 * @returns {string | null} runtime code
 	 */
 	generate() {
-		const { compilation } = this;
+		const compilation = /** @type {Compilation} */ (this.compilation);
 		const { runtimeTemplate, outputOptions } = compilation;
 		const { trustedTypes } = outputOptions;
 		const fn = RuntimeGlobals.getTrustedTypesPolicy;

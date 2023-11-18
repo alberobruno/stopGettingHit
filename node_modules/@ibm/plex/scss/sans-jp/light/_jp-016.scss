@@ -1,0 +1,9 @@
+@font-face {
+  font-family: 'IBM Plex Sans JP';
+  font-style: normal;
+  font-weight: 300;
+  src: local('IBM Plex Sans JP Light'),
+    local('IBMPlexSansJP-Light'),
+    url('#{$font-prefix}/IBM-Plex-Sans-JP/fonts/split/woff2/hinted/IBMPlexSansJP-Light-016.woff2') format('woff2');
+    unicode-range: U+8964, U+8966, U+896A, U+896D, U+896F, U+8974, U+8977, U+897E, U+8983, U+8988, U+898A, U+8993, U+8998, U+89A1, U+89A6, U+89A9, U+89AC, U+89AF, U+89B2, U+89BA, U+89BD, U+89BF-89C0, U+89DA, U+89DC-89DD, U+89E7, U+89F4, U+89F8, U+8A0C, U+8A10, U+8A12, U+8A16, U+8A1B, U+8A1D, U+8A25, U+8A36-8A37, U+8A3B, U+8A41, U+8A46, U+8A48, U+8A51-8A52, U+8A54, U+8A5B, U+8A62, U+8A6C-8A6D, U+8A79, U+8A7C, U+8A82, U+8A84-8A85, U+8A91, U+8A9A, U+8AA1, U+8AA3, U+8AA5-8AA8, U+8ABC, U+8ABE, U+8AC2, U+8AC4, U+8ACC-8ACD, U+8AD2, U+8ADA-8ADC, U+8ADE-8AE2, U+8AE4, U+8AE7, U+8AEB, U+8AEE, U+8AF1, U+8AF3, U+8AF6-8AF7, U+8AFA, U+8B01-8B02, U+8B04, U+8B07, U+8B0C, U+8B10;
+}

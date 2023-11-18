@@ -1,0 +1,9 @@
+@font-face {
+  font-family: 'IBM Plex Sans JP';
+  font-style: normal;
+  font-weight: 700;
+  src: local('IBM Plex Sans JP Bold'),
+    local('IBMPlexSansJP-Bold'),
+    url('#{$font-prefix}/IBM-Plex-Sans-JP/fonts/split/woff2/hinted/IBMPlexSansJP-Bold-119.woff2') format('woff2');
+    unicode-range: U+0020, U+3001-3002, U+3041-307F, U+3081-308F, U+3091-3093, U+309D-309E, U+30A1-30E1, U+30E3-30ED, U+30EF-30F0, U+30F2-30F4, U+30FB-30FE, U+FF0C, U+FF0E;
+}
