@@ -1,42 +1,44 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import {
+  TableContainer,
+  Table,
+  TableHead,
+  TableRow,
+  TableBody,
+  TableCell,
+} from "@carbon/react";
 
 const PlayerStats = function (props) {
-  //----------Make sure we have access to data----------
-  const { playerMoves, p1MainPlayer, player1, player2 } = props;
+  const { playerMoves, p1MainPlayer } = props;
 
   const p1BeatenBy = playerMoves[0];
   const p2BeatenBy = playerMoves[1];
 
-  //Add in moves that lost
+  // Add in moves that lost
   const movesPerformed = "To be added in future version";
-
-  const beatenBy = [];
-  for (
-    let i = 0;
-    i < (p1MainPlayer ? p1BeatenBy.length : p2BeatenBy.length);
-    i++
-  ) {
-    beatenBy.push(
-      <tr key={i}>
-        <td>{p1MainPlayer ? p1BeatenBy[i] : p2BeatenBy[i]}</td>
-        <td>{movesPerformed}</td>
-      </tr>
-    );
-  }
 
   return (
     <>
       <h3 style={{ marginBottom: "25px" }}>When did you lose in neutral?</h3>
 
-      <table className="table table-hover">
-        <thead>
-          <tr>
-            <th>Moves you performed </th>
-            <th>Beaten By</th>
-          </tr>
-        </thead>
-        <tbody>{beatenBy}</tbody>
-      </table>
+      <TableContainer>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Moves you performed</TableCell>
+              <TableCell>Beaten By</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {(p1MainPlayer ? p1BeatenBy : p2BeatenBy).map((move, i) => (
+              <TableRow key={i}>
+                <TableCell>{move}</TableCell>
+                <TableCell>{movesPerformed}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </>
   );
 };

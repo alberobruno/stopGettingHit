@@ -1,19 +1,36 @@
 //----------Initial Setup----------
 const path = require("path");
 const express = require("express");
+const redis = require("redis");
 const router = require("./router");
 
 // const bodyParser = require('body-parser');
-// const cors = require('cors');
+const cors = require("cors");
 
 const app = express();
 const PORT = 3000;
 
+// //----------Redis----------
+const client = redis.createClient({
+  password: "slab-coping-flying",
+  socket: {
+    host: "redis-12503.c8.us-east-1-2.ec2.cloud.redislabs.com",
+    port: 12503,
+  },
+});
+client.on("connect", () => {
+  console.log("Connected to Redis");
+});
+
+client.on("error", (err) => {
+  console.log("Redis error: ", err);
+});
+
 //----------Middleware----------
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 app.use("/", router);
+app.use(cors());
 
 //----------Requested Page Not Found Error----------
 app.use((req, res) => res.status(404).send("Page not found"));

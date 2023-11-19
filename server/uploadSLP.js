@@ -1,10 +1,10 @@
 //----------Initial Setup----------
 const controller = {};
-const path = require("path");
-const fs = require("fs");
-const formidable = require("formidable");
-const { execSync } = require("child_process");
-const clearFolders = require("./clearFolders");
+const path = require('path');
+const fs = require('fs');
+const formidable = require('formidable');
+const { execSync } = require('child_process');
+const clearFolders = require('./clearFolders');
 
 //----------File Upload----------
 controller.add = async (req, res, next) => {
@@ -14,17 +14,24 @@ controller.add = async (req, res, next) => {
 
     //Process the file upload in Node
     form.parse(req, function (error, fields, file) {
+      if (error) {
+        return next({
+          log: `uploadSLP.add: ${error}`,
+          status: 500,
+          message: { err: 'An error occurred while parsing the form.' },
+        });
+      }
       let filepath = file.myFile.filepath;
-      let outputpath = path.resolve(__dirname, "./uploadsOutput/");
-      let newpath = path.resolve(__dirname, "./uploads/");
+      let outputpath = path.resolve(__dirname, './uploadsOutput/');
+      let newpath = path.resolve(__dirname, './uploads/');
       clearFolders.del();
-      newpath += "/" + file.myFile.originalFilename;
+      newpath += '/' + file.myFile.originalFilename;
 
       //Copy the uploaded file to a custom folder
       fs.rename(filepath, newpath, function () {
-        console.log("File Upload Success!");
+        console.log('File Upload Success!');
         //Run data parser
-        execSync("npm run getData");
+        execSync('npm run getData');
         next();
       });
     });

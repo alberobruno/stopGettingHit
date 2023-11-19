@@ -40,6 +40,12 @@ module.exports = {
       "/assets/**": {
         target: "http://localhost:3000/",
         secure: false,
+        changeOrigin: false,
+      },
+      "/upload": {
+        target: "http://localhost:3000",
+        secure: false,
+        changeOrigin: false,
       },
     },
   },
@@ -72,6 +78,16 @@ module.exports = {
       {
         test: /\.gif$/,
         use: ["file-loader"],
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        use: {
+          loader: "file-loader",
+          options: {
+            name: "[name].[ext]",
+            outputPath: "fonts/",
+          },
+        },
       },
     ],
   },

@@ -1,7 +1,7 @@
 import React from "react";
+import { Button } from "@carbon/react";
 
 const AnalysisHeading = function (props) {
-  //----------Make sure we have access to data----------
   const { id, toggleStyles, p1MainPlayer, setP1MainPlayer, player1, player2 } =
     props;
 
@@ -11,24 +11,24 @@ const AnalysisHeading = function (props) {
 
   return (
     <div className="analysis-heading">
-      <h1>Analysis</h1>
-      <h5> Match ID: {id}</h5>
+      <h1 className="bx--type-display-01">Analysis</h1>
+      <h5 className="bx--type-body-long-01">Match ID: {id}</h5>
       <div className="select-player">
         <div className="select-player-container">
-          <div
-            className="select-player-1"
+          <Button
+            kind={p1MainPlayer ? "primary" : "secondary"}
             onClick={togglePlayer}
             style={toggleStyles.p1}
           >
-            <span>{player1}</span>
-          </div>
-          <div
-            className="select-player-2"
+            {player1}
+          </Button>
+          <Button
+            kind={!p1MainPlayer ? "primary" : "secondary"}
             onClick={togglePlayer}
             style={toggleStyles.p2}
           >
-            <span>{player2}</span>
-          </div>
+            {player2}
+          </Button>
         </div>
       </div>
     </div>

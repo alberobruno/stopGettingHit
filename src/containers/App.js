@@ -3,13 +3,14 @@
  * @param {HTMLElement} dropzoneElement
  */
 
-import React, { useState } from "react";
-import { Routes, Route, HashRouter } from "react-router-dom";
+import React, { useState } from 'react';
+import { Routes, Route, HashRouter } from 'react-router-dom';
+import './app.scss';
 
 //----------Components----------
-import Upload from "./Upload";
-import Analysis from "./Analysis";
-import { DataContext } from "../contexts/DataContext";
+import Upload from './Upload';
+import Analysis from './Analysis';
+import { DataContext } from '../contexts/DataContext';
 
 const App = () => {
   const [receivedData, setReceivedData] = useState(null);
