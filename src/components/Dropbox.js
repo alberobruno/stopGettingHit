@@ -1,144 +1,67 @@
 import React, { useState } from "react";
-import { Button } from "@carbon/react";
+import { Button, FileUploader } from "@carbon/react";
+import axios from "axios"; // Make sure to install axios if not already
 
 const Dropbox = function () {
-  const [disabled, setDisabled] = useState(true);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [invalidFileType, setInvalidFileType] = useState(false);
 
-  //----------Dropzone Box Functionality----------
-  const dropHandler = (e) => {
-    e.preventDefault();
-    document.querySelectorAll(".dropzone--input").forEach((inputElement) => {
-      const dropzoneEl = inputElement.closest(".dropzone");
-      const receivedFiles = e.dataTransfer.files;
-      console.log("Received Files: ", receivedFiles);
-      validateFiles(receivedFiles);
-      if (receivedFiles.length) {
-        inputElement.files = receivedFiles;
-        updateThumbnail(dropzoneEl, receivedFiles[0]);
-        setDisabled(false);
-      }
-    });
-  };
-  const dropClick = () => {
-    document.querySelectorAll(".dropzone--input").forEach((inputElement) => {
-      const dropzoneEl = inputElement.closest(".dropzone");
-      inputElement.addEventListener("change", () => {
-        if (inputElement.files.length) {
-          updateThumbnail(dropzoneEl, inputElement.files[0]);
-          dropzoneEl.classList.add("dropzone--over");
-          setDisabled(false);
-        }
-      });
-      inputElement.click();
-    });
-  };
-  const dragOverHandler = (e) => {
-    e.preventDefault();
-    document.querySelectorAll(".dropzone--input").forEach((inputElement) => {
-      const dropzoneEl = inputElement.closest(".dropzone");
-      dropzoneEl.classList.add("dropzone--over");
-    });
-  };
-  const dragOverEnd = () => {
-    document.querySelectorAll(".dropzone--input").forEach((inputElement) => {
-      const dropzoneEl = inputElement.closest(".dropzone");
-      dropzoneEl.classList.remove("dropzone--over");
-    });
-  };
-
-  const updateThumbnail = (dropzoneEl, file) => {
-    let thumbnailEl = dropzoneEl.querySelector(".dropzone--thumbnail");
-
-    if (dropzoneEl.querySelector(".dropzone--prompt")) {
-      dropzoneEl.querySelector(".dropzone--prompt").remove();
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file && file.name.slice(-3) !== "slp") {
+      setInvalidFileType(true);
+      setSelectedFile(null);
+    } else {
+      setSelectedFile(file);
+      setInvalidFileType(false);
     }
-    if (!thumbnailEl) {
-      thumbnailEl = document.createElement("div");
-      thumbnailEl.classList.add("dropzone--thumbnail");
-      dropzoneEl.appendChild(thumbnailEl);
-    }
-
-    thumbnailEl.dataset.label = file.name;
-
-    if (file.type.startsWith("image/")) {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        thumbnailEl.style.backgroundImage = `url('${reader.result}')`;
-      };
-    } else thumbnailEl.style.backgroundImage = null;
   };
 
-  //----------Validate Uploaded Files----------
-  const validateFiles = (files) => {
-    // console.log("File Type: ", file.name.slice(-3));
-    for (let file of files) {
-      if (file.name.slice(-3) !== "slp") {
-        console.log("Incorrect file type...reloading page.");
-        document.querySelector("#dropbox").classList.add("dropzone--over");
-        reloadPage();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (selectedFile) {
+      const formData = new FormData();
+      formData.append("myFile", selectedFile);
+
+      try {
+        await axios.post("http://localhost:8080/upload", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        // Refresh the page after successful upload
+        window.location.reload();
+      } catch (error) {
+        console.error("Error uploading file:", error);
       }
     }
   };
 
-  //----------Reload Button Functionality----------
   const reloadPage = () => window.location.reload();
-  //----------Validate Uploaded Files----------
-  // const resetForm = () => {
-  //   const form = document.querySelector("#dropzoneform");
-  //   console.log("Form: ", form);
-  //   form.reset;
-  // };
 
   return (
-    <div className="dropbox" id="dropbox">
-      <form
-        action="http://localhost:8080/upload"
-        method="post"
-        encType="multipart/form-data"
-        id="dropzoneform"
-        className="dropzoneform"
-      >
+    <div className="dropbox">
+      <form encType="multipart/form-data" onSubmit={handleSubmit}>
+        <FileUploader
+          labelTitle="Drop SLP here or click to upload."
+          labelDescription="Currently supports one file at a time."
+          buttonLabel="Add file"
+          filenameStatus="edit"
+          accept={[".slp"]}
+          multiple={false}
+          onChange={handleFileChange}
+          iconDescription="Clear file"
+          invalid={invalidFileType}
+          invalidText="Invalid file type."
+        />
         <div
-          className="dropzone"
-          id="dropzone"
-          onClick={(e) => dropClick(e)}
-          onDrop={(e) => dropHandler(e)}
-          onDragOver={(e) => dragOverHandler(e)}
-          onDragEnd={() => dragOverEnd()}
-          onDragLeave={() => dragOverEnd()}
+          className="dropbox-buttons"
+          style={{ marginTop: "1rem", marginBottom: "1rem" }}
         >
-          <span className="dropzone--prompt">
-            Drop SLP here or click to upload.
-            <br />
-            Currently supports one file at a time.
-          </span>
-          <input
-            type="file"
-            name="myFile"
-            className="dropzone--input"
-            accept=".slp"
-            multiple
-          />
-        </div>
-        <div className="break" />
-        <div className="dropboxbuttons">
-          <Button
-            type="submit"
-            accept=".slp"
-            id="uploadMatchesButton"
-            disabled={disabled}
-            style={{ width: "auto", height: "auto" }}
-            // onClick={() => {
-            //   disableSubmitButton();
-            // }}
-          >
+          <Button type="submit" disabled={!selectedFile}>
             Upload Matches
           </Button>
-          <Button
-            onClick={reloadPage}
-            style={{ width: "auto", height: "auto", marginLeft: "1rem" }}
-          >
+          <Button onClick={reloadPage} style={{ marginLeft: "1rem" }}>
             Reload Page
           </Button>
         </div>

@@ -1,51 +1,46 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { Button, TableRow, TableCell, IconButton } from "@carbon/react";
+import { TrashCan } from "@carbon/icons-react";
 
 const Items = function (props) {
-  //----------Make sure we have access to data----------
   const { data, setData } = props;
   const { id, player1, player2 } = data;
 
-  //----------Delete button functionality----------
   const deleteMatch = async () => {
     try {
-      const fetchData = async () => {
-        const axiosDelete = await axios.delete(`/delete/${id}`);
-        const axiosGet = await axios.get("/getMatches");
-        setData(axiosGet.data);
-      };
-      const grab = fetchData();
+      await axios.delete(`/delete/${id}`);
+      const axiosGet = await axios.get("/getMatches");
+      setData(axiosGet.data);
     } catch (e) {
-      console.log("Deletion Error...");
+      console.error("Deletion Error...");
+      console.error(e);
     }
   };
 
   return (
-    <tr>
-      <td>{id}</td>
-      <td>{player1}</td>
-      <td>{player2}</td>
-      <td>
-        <button
-          className="btn btn-success ml-2 mt-2"
-          onClick={() => deleteMatch()}
+    <TableRow>
+      <TableCell>{id}</TableCell>
+      <TableCell>{player1}</TableCell>
+      <TableCell>{player2}</TableCell>
+      <TableCell>
+        <Link
+          to={"/analysis"}
+          state={{ data: data, id: id, player1: player1, player2: player2 }}
         >
-          Delete
-        </button>
-      </td>
-      <td>
-        <button className="btn btn-success ml-2 mt-2">
-          <Link
-            to={"/analysis"}
-            className="link"
-            state={{ data: data, id: id, player1: player1, player2: player2 }}
-          >
-            Analyze Match
-          </Link>
-        </button>
-      </td>
-    </tr>
+          <Button kind="tertiary">Analyze Match</Button>
+        </Link>
+      </TableCell>
+      <TableCell>
+        <IconButton
+          renderIcon={TrashCan}
+          iconDescription={`Delete Match ${id}`}
+          onClick={() => deleteMatch()}
+          hasIconOnly
+        />
+      </TableCell>
+    </TableRow>
   );
 };
 

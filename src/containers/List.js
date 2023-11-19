@@ -1,16 +1,21 @@
 import React, { useEffect, useState, useContext } from "react";
 import { DataContext } from "../contexts/DataContext";
 import axios from "axios";
-
-//----------Components----------
 import Items from "../components/Items";
+import "../styles.scss";
+import {
+  TableContainer,
+  Table,
+  TableHead,
+  TableRow,
+  TableBody,
+  TableCell,
+} from "@carbon/react";
 
 const List = function () {
-  //----------Make sure we have access to data----------
   const { receivedData, setReceivedData } = useContext(DataContext);
   const [fetched, setFetched] = useState(false);
 
-  //----------Fetch matches table from backend----------
   useEffect(() => {
     if (!fetched) {
       setFetched(true);
@@ -22,31 +27,29 @@ const List = function () {
     }
   }, []);
 
-  //----------For each body, loop through data and populate----------
   if (receivedData) {
-    let data = receivedData;
-    const rows = [];
-
-    for (let i = 0; i < data.length; i++) {
-      rows.push(<Items data={data[i]} setData={setReceivedData} key={i} />);
-    }
+    const data = receivedData.sort((a, b) => a.id - b.id);
 
     return (
-      <div className="list">
-        <div id="listComponent">
-          <table className="table table-hover">
-            <thead>
-              <tr>
-                <th>Id </th>
-                <th>Player 1</th>
-                <th>Player 2</th>
-                <th></th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>{rows}</tbody>
-          </table>
-        </div>
+      <div className="table-container-custom">
+        <TableContainer title="Matches">
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Id</TableCell>
+                <TableCell>Player 1</TableCell>
+                <TableCell>Player 2</TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {data.map((row, i) => (
+                <Items data={row} setData={setReceivedData} key={i} />
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </div>
     );
   } else {

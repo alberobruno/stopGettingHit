@@ -5,9 +5,15 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@carbon/icons-react':
+    specifier: ^11.30.1
+    version: 11.30.1(react@17.0.2)
   '@carbon/react':
     specifier: ^1.42.1
     version: 1.42.1(react-dom@17.0.2)(react@17.0.2)(sass@1.51.0)
+  '@carbon/type':
+    specifier: ^11.25.0
+    version: 11.25.0
   '@ibm/plex':
     specifier: ^6.3.0
     version: 6.3.0

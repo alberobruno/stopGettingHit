@@ -19,6 +19,16 @@ body {
   -ms-overflow-style: none;
 }
 
+/* ----------List Table---------- */
+.table-container-custom {
+  max-width: 50%; 
+  margin: 0 auto;
+}
+
+.table-container-custom .bx--data-table-container__title {
+  text-align: center; 
+}
+
 /* ----------Dropbox---------- */
 .dropbox {
     display: flex;

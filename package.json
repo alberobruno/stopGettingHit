@@ -13,7 +13,9 @@
   "author": "Bruno Albero",
   "license": "MIT",
   "dependencies": {
+    "@carbon/icons-react": "^11.30.1",
     "@carbon/react": "^1.42.1",
+    "@carbon/type": "^11.25.0",
     "@ibm/plex": "^6.3.0",
     "@slippi/slippi-js": "^6.2.1",
     "async": "^3.2.4",
