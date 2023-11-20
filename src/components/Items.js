@@ -38,6 +38,7 @@ const Items = function (props) {
           iconDescription={`Delete Match ${id}`}
           onClick={() => deleteMatch()}
           hasIconOnly
+          label={`Delete Match ${id}`}
         />
       </TableCell>
     </TableRow>

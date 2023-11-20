@@ -1,6 +1,5 @@
-import React, { useEffect, useState, useContext } from "react";
-import { DataContext } from "../contexts/DataContext";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { dataObservable, fetchData } from "../state/store";
 import Items from "../components/Items";
 import "../styles.scss";
 import {
@@ -10,28 +9,47 @@ import {
   TableRow,
   TableBody,
   TableCell,
+  InlineLoading,
 } from "@carbon/react";
 
-const List = function () {
-  const { receivedData, setReceivedData } = useContext(DataContext);
+const List = () => {
+  // ---------- State management ----------
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [fetched, setFetched] = useState(false);
 
+  // ---------- Use Effect ----------
   useEffect(() => {
+    const subscription = dataObservable.subscribe((state) => {
+      setData(state.data);
+      setLoading(state.loading);
+    });
     if (!fetched) {
       setFetched(true);
-      const fetchData = async () => {
-        const axiosGet = await axios.get("/getMatches");
-        setReceivedData(axiosGet.data);
-      };
       fetchData();
     }
+    return () => subscription.unsubscribe();
   }, []);
 
-  if (receivedData) {
-    const data = receivedData.sort((a, b) => a.id - b.id);
-
+  // ---------- No Data ----------
+  if (data?.length === 0 && !loading) {
     return (
-      <div className="table-container-custom">
+      <div className="list">
+        <div id="listComponent">No data available.</div>
+      </div>
+    );
+  }
+
+  // ---------- Return Data ----------
+  const sortedData = Array.isArray(data)
+    ? [...data].sort((a, b) => a.id - b.id)
+    : [];
+  return (
+    <div className="table-container-custom">
+      {loading && (
+        <InlineLoading description={"Fetching data from database..."} />
+      )}
+      {!loading && (
         <TableContainer title="Matches">
           <Table>
             <TableHead>
@@ -44,25 +62,15 @@ const List = function () {
               </TableRow>
             </TableHead>
             <TableBody>
-              {data.map((row, i) => (
-                <Items data={row} setData={setReceivedData} key={i} />
+              {sortedData.map((row, i) => (
+                <Items data={row} key={i} />
               ))}
             </TableBody>
           </Table>
         </TableContainer>
-      </div>
-    );
-  } else {
-    return (
-      <div className="list">
-        <div id="listComponent">
-          <span>Fetching data from database...</span>
-          <br></br>
-          <span>(May take up to 10 secs)</span>
-        </div>
-      </div>
-    );
-  }
+      )}
+    </div>
+  );
 };
 
 export default List;

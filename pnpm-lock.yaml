@@ -14,9 +14,15 @@ dependencies:
   '@carbon/type':
     specifier: ^11.25.0
     version: 11.25.0
+  '@datorama/akita':
+    specifier: ^8.0.1
+    version: 8.0.1(rxjs@7.8.1)(tslib@2.4.1)
   '@ibm/plex':
     specifier: ^6.3.0
     version: 6.3.0
+  '@ngneat/elf':
+    specifier: ^2.4.0
+    version: 2.4.0(rxjs@7.8.1)
   '@slippi/slippi-js':
     specifier: ^6.2.1
     version: 6.7.0
@@ -45,7 +51,7 @@ dependencies:
     specifier: ^8.54.0
     version: 8.54.0
   express:
-    specifier: ^4.18.1
+    specifier: ^4.18.2
     version: 4.18.2
   file-loader:
     specifier: ^6.2.0
@@ -77,6 +83,9 @@ dependencies:
   redis:
     specifier: ^4.6.6
     version: 4.6.10
+  rxjs:
+    specifier: ^7.8.1
+    version: 7.8.1
   style-loader:
     specifier: ^3.3.1
     version: 3.3.3(webpack@5.89.0)
@@ -1497,6 +1506,16 @@ packages:
       '@carbon/layout': 11.20.0
     dev: false
 
+  /@datorama/akita@8.0.1(rxjs@7.8.1)(tslib@2.4.1):
+    resolution: {integrity: sha512-0VnPWd+Sy3ColhzjDSBNcEnzAQtbezk6bYmJHvPaLMK5Ysl90KcNls2bE4sj5vaLeGLjhMtqtfp/RgrigPXDxA==}
+    peerDependencies:
+      rxjs: '*'
+      tslib: 2.4.1
+    dependencies:
+      rxjs: 7.8.1
+      tslib: 2.4.1
+    dev: false
+
   /@discoveryjs/json-ext@0.5.7:
     resolution: {integrity: sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==}
     engines: {node: '>=10.0.0'}
@@ -1596,6 +1615,14 @@ packages:
 
   /@leichtgewicht/ip-codec@2.0.4:
     resolution: {integrity: sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==}
+
+  /@ngneat/elf@2.4.0(rxjs@7.8.1):
+    resolution: {integrity: sha512-yLXnf9c42//UC4slpgCqLSbbMBzc1YcuDKyDEu5ojLxjbWOCZpp9RQzsLedSgOzBS3wT5nJ5eI6nyxGHOWAYmw==}
+    peerDependencies:
+      rxjs: '>=7.0.0'
+    dependencies:
+      rxjs: 7.8.1
+    dev: false
 
   /@nodelib/fs.scandir@2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -5705,6 +5732,12 @@ packages:
       tslib: 1.14.1
     dev: true
 
+  /rxjs@7.8.1:
+    resolution: {integrity: sha512-AA3TVj+0A2iuIoQkWEK/tqFjBq2j+6PO6Y0zJcvzLAFhEFIO3HL0vls9hWLncZbAAbK0mar7oZ4V079I/qPMxg==}
+    dependencies:
+      tslib: 2.6.2
+    dev: false
+
   /safe-array-concat@1.0.1:
     resolution: {integrity: sha512-6XbUAseYE2KtOuGueyeobCySj9L4+66Tn6KQMOPQJrAJEowYKW/YR/MGJZl7FdydUdaFu4LYyDZjxf4/Nmo23Q==}
     engines: {node: '>=0.4'}
@@ -6321,6 +6354,10 @@ packages:
   /tslib@1.14.1:
     resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
     dev: true
+
+  /tslib@2.4.1:
+    resolution: {integrity: sha512-tGyy4dAjRIEwI7BzsB0lynWgOpfqjUdq91XXAlIWD2OwKBH7oCl/GZG/HT4BOHrTlPMOASlMQ7veyTqpmRcrNA==}
+    dev: false
 
   /tslib@2.6.2:
     resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}

@@ -3,6 +3,7 @@
 
 body {
   overflow-x: hidden;
+  font-family: Arial, sans-serif;
 }
 
 /* ----------Remove Scrollbar---------- */
@@ -21,13 +22,23 @@ body {
 
 /* ----------List Table---------- */
 .table-container-custom {
-  max-width: 50%; 
+  width: 50%;
+  min-width: 755px; 
   margin: 0 auto;
+  text-align: center;
 }
 
-.table-container-custom .bx--data-table-container__title {
-  text-align: center; 
+
+
+.table-container-custom .bx--data-table {
+  width: 100%; 
 }
+
+.table-container-custom .bx--data-table td, 
+.table-container-custom .bx--data-table th {
+  text-align: center;
+}
+
 
 /* ----------Dropbox---------- */
 .dropbox {
@@ -46,7 +57,7 @@ body {
   text-align: center;
   border-radius: 10px;
   padding: 25px;
-  font-family: 'Quicksand', sans-serif;
+  // font-family: 'Quicksand', sans-serif;
   cursor: pointer;
   color: #a5a5a5;
   font-weight: 500;

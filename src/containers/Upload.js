@@ -6,7 +6,7 @@ const Upload = function () {
   return (
     <>
       <h1
-        className="bx--type-expressive-heading-01 bx--type-semibold text-center mt-5"
+        className="bx--type-semibold text-center mt-5"
         style={{ paddingTop: "50px" }}
       >
         Stop Getting Hit
