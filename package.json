@@ -19,6 +19,7 @@
     "@datorama/akita": "^8.0.1",
     "@ibm/plex": "^6.3.0",
     "@ngneat/elf": "^2.4.0",
+    "@ngneat/use-observable": "^1.0.0",
     "@slippi/slippi-js": "^6.2.1",
     "async": "^3.2.4",
     "axios": "^0.27.2",
@@ -38,7 +39,7 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^6.4.5",
-    "redis": "^4.6.6",
+    "redis": "^4.6.10",
     "rxjs": "^7.8.1",
     "style-loader": "^3.3.1"
   },

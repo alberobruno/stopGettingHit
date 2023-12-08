@@ -5,13 +5,12 @@ import axios from "axios";
 const Dropbox = function () {
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [invalidFileType, setInvalidFileType] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleFileChange = (e) => {
-    console.log("Event: ", e);
     const newFiles = Array.from(e.target.files);
     const validFiles = newFiles.filter((file) => file.name.slice(-3) === "slp");
     const invalidFiles = newFiles.length !== validFiles.length;
-
     setInvalidFileType(invalidFiles);
     setUploadedFiles(validFiles);
   };
@@ -19,11 +18,11 @@ const Dropbox = function () {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (uploadedFiles?.length > 0) {
+      setIsLoading(true);
       const formData = new FormData();
       uploadedFiles?.forEach((file) => {
         formData.append("myFiles", file);
       });
-
       try {
         await axios.post("http://localhost:8080/upload", formData, {
           headers: {
@@ -33,11 +32,13 @@ const Dropbox = function () {
         window.location.reload();
       } catch (error) {
         console.error("Error uploading file:", error);
+      } finally {
+        setIsLoading(false);
       }
     }
   };
 
-  const reloadPage = () => window.location.reload();
+  // const reloadPage = () => window.location.reload();
 
   return (
     <div className="dropbox">
@@ -63,11 +64,9 @@ const Dropbox = function () {
           <Button
             type="submit"
             disabled={uploadedFiles.length === 0 || invalidFileType}
+            // loading={isLoading}
           >
             Upload Matches
-          </Button>
-          <Button onClick={reloadPage} style={{ marginLeft: "1rem" }}>
-            Reload Page
           </Button>
         </div>
       </form>

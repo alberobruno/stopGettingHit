@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { dataObservable, fetchData } from "../state/store";
+import { useObservable } from "@ngneat/use-observable";
+import { dataQuery, fetchData, dataState$ } from "../state/store";
 import Items from "../components/Items";
 import "../styles.scss";
 import {
@@ -14,25 +15,20 @@ import {
 
 const List = () => {
   // ---------- State management ----------
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [matches] = useObservable(dataQuery.selectAll());
+  const [state] = useObservable(dataState$);
   const [fetched, setFetched] = useState(false);
 
   // ---------- Use Effect ----------
   useEffect(() => {
-    const subscription = dataObservable.subscribe((state) => {
-      setData(state.data);
-      setLoading(state.loading);
-    });
-    if (!fetched) {
+    if (!fetched && matches?.length === 0) {
       setFetched(true);
       fetchData();
     }
-    return () => subscription.unsubscribe();
-  }, []);
+  }, [fetched]);
 
   // ---------- No Data ----------
-  if (data?.length === 0 && !loading) {
+  if (matches?.length === 0 && state !== "loading") {
     return (
       <div className="list">
         <div id="listComponent">No data available.</div>
@@ -41,15 +37,15 @@ const List = () => {
   }
 
   // ---------- Return Data ----------
-  const sortedData = Array.isArray(data)
-    ? [...data].sort((a, b) => a.id - b.id)
+  const sortedData = Array.isArray(matches)
+    ? [...matches].sort((a, b) => a.id - b.id)
     : [];
   return (
     <div className="table-container-custom">
-      {loading && (
+      {state === "loading" && (
         <InlineLoading description={"Fetching data from database..."} />
       )}
-      {!loading && (
+      {state !== "loading" && (
         <TableContainer title="Matches">
           <Table>
             <TableHead>

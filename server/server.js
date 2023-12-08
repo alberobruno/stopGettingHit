@@ -1,7 +1,7 @@
 //----------Initial Setup----------
 const path = require("path");
 const express = require("express");
-const redis = require("redis");
+const redisClient = require("./redisClient");
 const router = require("./router");
 
 // const bodyParser = require('body-parser');
@@ -11,19 +11,8 @@ const app = express();
 const PORT = 3000;
 
 // //----------Redis----------
-const client = redis.createClient({
-  password: "slab-coping-flying",
-  socket: {
-    host: "redis-12503.c8.us-east-1-2.ec2.cloud.redislabs.com",
-    port: 12503,
-  },
-});
-client.on("connect", () => {
-  console.log("Connected to Redis");
-});
-
-client.on("error", (err) => {
-  console.log("Redis error: ", err);
+redisClient.set("key", "value", (err, reply) => {
+  // Handle response
 });
 
 //----------Middleware----------

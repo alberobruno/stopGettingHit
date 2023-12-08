@@ -23,6 +23,9 @@ dependencies:
   '@ngneat/elf':
     specifier: ^2.4.0
     version: 2.4.0(rxjs@7.8.1)
+  '@ngneat/use-observable':
+    specifier: ^1.0.0
+    version: 1.0.0
   '@slippi/slippi-js':
     specifier: ^6.2.1
     version: 6.7.0
@@ -81,7 +84,7 @@ dependencies:
     specifier: ^6.4.5
     version: 6.19.0(react-dom@17.0.2)(react@17.0.2)
   redis:
-    specifier: ^4.6.6
+    specifier: ^4.6.10
     version: 4.6.10
   rxjs:
     specifier: ^7.8.1
@@ -1622,6 +1625,10 @@ packages:
       rxjs: '>=7.0.0'
     dependencies:
       rxjs: 7.8.1
+    dev: false
+
+  /@ngneat/use-observable@1.0.0:
+    resolution: {integrity: sha512-r8AwH3hI5zNI/nV1/X6XzCfmVQ0NPF+WDRbc6xQ0ZVhwsbaMPYsiKxr7wEDzWUMIN5iIMsScBs2g7oQRL0Xg3A==}
     dev: false
 
   /@nodelib/fs.scandir@2.1.5:

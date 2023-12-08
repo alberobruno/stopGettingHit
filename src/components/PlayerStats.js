@@ -20,7 +20,6 @@ const PlayerStats = function (props) {
   return (
     <>
       <h3 style={{ marginBottom: "25px" }}>When did you lose in neutral?</h3>
-
       <TableContainer>
         <Table>
           <TableHead>

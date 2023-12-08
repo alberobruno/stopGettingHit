@@ -1,18 +1,16 @@
 import React from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import { Button, TableRow, TableCell, IconButton } from "@carbon/react";
 import { TrashCan } from "@carbon/icons-react";
+import { deletePolicy } from "../state/store";
 
 const Items = function (props) {
-  const { data, setData } = props;
+  const { data } = props;
   const { id, player1, player2 } = data;
 
   const deleteMatch = async () => {
     try {
-      await axios.delete(`/delete/${id}`);
-      const axiosGet = await axios.get("/getMatches");
-      setData(axiosGet.data);
+      await deletePolicy(id);
     } catch (e) {
       console.error("Deletion Error...");
       console.error(e);
