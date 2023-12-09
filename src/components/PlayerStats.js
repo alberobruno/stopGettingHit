@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   TableContainer,
   Table,
@@ -6,20 +6,26 @@ import {
   TableRow,
   TableBody,
   TableCell,
-} from "@carbon/react";
+} from '@carbon/react';
 
-const PlayerStats = function (props) {
-  const { playerMoves, p1MainPlayer } = props;
+// interface PlayerStatsProps {
+//   playerMoves: any;
+//   p1MainPlayer: boolean;
+// }
+
+export default function PlayerStats({ playerMoves, p1MainPlayer }) {
+  console.log('PlayerMoves: ', playerMoves);
+  console.log('p1MainPlayer: ', p1MainPlayer);
 
   const p1BeatenBy = playerMoves[0];
   const p2BeatenBy = playerMoves[1];
 
   // Add in moves that lost
-  const movesPerformed = "To be added in future version";
+  const movesPerformed = 'To be added in future version';
 
   return (
     <>
-      <h3 style={{ marginBottom: "25px" }}>When did you lose in neutral?</h3>
+      <h3 style={{ marginBottom: '25px' }}>When did you lose in neutral?</h3>
       <TableContainer>
         <Table>
           <TableHead>
@@ -40,6 +46,4 @@ const PlayerStats = function (props) {
       </TableContainer>
     </>
   );
-};
-
-export default PlayerStats;
+}
