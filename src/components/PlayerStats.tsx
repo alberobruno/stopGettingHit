@@ -13,7 +13,10 @@ interface PlayerStatsProps {
   p1MainPlayer: boolean;
 }
 
-export default function PlayerStats({ playerMoves, p1MainPlayer }: PlayerStatsProps) {
+export default function PlayerStats({
+  playerMoves,
+  p1MainPlayer,
+}: PlayerStatsProps) {
   const p1BeatenBy = playerMoves[0];
   const p2BeatenBy = playerMoves[1];
   const movesPerformed = 'To be added in future version';
@@ -31,15 +34,16 @@ export default function PlayerStats({ playerMoves, p1MainPlayer }: PlayerStatsPr
           </TableHead>
           <TableBody>
             {(p1MainPlayer ? p1BeatenBy : p2BeatenBy).map((move, i) => (
-                <React.Fragment key={i}>
-              <TableRow>
-                <TableCell>{move}</TableCell>
-                <TableCell>{movesPerformed}</TableCell>
-              </TableRow>
+              <React.Fragment key={i}>
+                <TableRow>
+                  <TableCell>{move}</TableCell>
+                  <TableCell>{movesPerformed}</TableCell>
+                </TableRow>
               </React.Fragment>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
-      </>  );
+    </>
+  );
 }

@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import { Button, FileUploader } from "@carbon/react";
-import axios from "axios";
+import React, { useState } from 'react';
+import { Button, FileUploader } from '@carbon/react';
+import axios from 'axios';
 
 const Dropbox = function () {
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [invalidFileType, setInvalidFileType] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
+  console.log('isLoading: ', isLoading);
   const handleFileChange = (e) => {
     const newFiles = Array.from(e.target.files);
-    const validFiles = newFiles.filter((file) => file.name.slice(-3) === "slp");
+    const validFiles = newFiles.filter((file) => file.name.slice(-3) === 'slp');
     const invalidFiles = newFiles.length !== validFiles.length;
     setInvalidFileType(invalidFiles);
     setUploadedFiles(validFiles);
@@ -21,17 +21,17 @@ const Dropbox = function () {
       setIsLoading(true);
       const formData = new FormData();
       uploadedFiles?.forEach((file) => {
-        formData.append("myFiles", file);
+        formData.append('myFiles', file);
       });
       try {
-        await axios.post("http://localhost:8080/upload", formData, {
+        await axios.post('http://localhost:8080/upload', formData, {
           headers: {
-            "Content-Type": "multipart/form-data",
+            'Content-Type': 'multipart/form-data',
           },
         });
         window.location.reload();
       } catch (error) {
-        console.error("Error uploading file:", error);
+        console.error('Error uploading file:', error);
       } finally {
         setIsLoading(false);
       }
@@ -48,18 +48,18 @@ const Dropbox = function () {
           labelDescription="Currently supports one file at a time."
           buttonLabel="Add file"
           filenameStatus="edit"
-          accept={[".slp"]}
+          accept={['.slp']}
           onChange={handleFileChange}
           iconDescription="Clear file"
         />
         {invalidFileType && (
-          <div style={{ color: "red", marginTop: "1rem" }}>
+          <div style={{ color: 'red', marginTop: '1rem' }}>
             Invalid file type. File types must be SLP.
           </div>
         )}
         <div
           className="dropbox-buttons"
-          style={{ marginTop: "1rem", marginBottom: "1rem" }}
+          style={{ marginTop: '1rem', marginBottom: '1rem' }}
         >
           <Button
             type="submit"

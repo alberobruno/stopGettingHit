@@ -3,7 +3,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: './src/index.js', // Adjust if your entry point is TypeScript
   output: {
     path: path.join(__dirname, '/dist'),
     filename: 'index_bundle.js',
@@ -13,54 +13,48 @@ module.exports = {
   devServer: {
     host: 'localhost',
     port: 8080,
-    // enable HMR on the devServer
-    hot: true,
-    // fallback to root for other urls
-    historyApiFallback: true,
+    hot: true, // Enable HMR on the devServer
+    historyApiFallback: true, // Fallback to root for other urls
 
     static: {
-      // match the output path
       directory: path.resolve(__dirname, 'dist'),
-      // match the output 'publicPath'
       publicPath: '/',
     },
 
     headers: { 'Access-Control-Allow-Origin': '*' },
-    /**
-     * proxy is required in order to make api calls to
-     * express server while using hot-reload webpack server
-     * routes api fetch requests from localhost:8080/api/* (webpack dev server)
-     * to localhost:3000/api/* (where our Express server is running)
-     */
+
     proxy: {
-      '/': {
+      '/api': {
+        // Adjust if your API endpoint differs
         target: 'http://localhost:3000/',
         secure: false,
+        changeOrigin: true, // Might be required depending on your setup
       },
-      '/assets/**': {
+      '/assets': {
+        // Serve assets directory
         target: 'http://localhost:3000/',
         secure: false,
-        changeOrigin: false,
       },
       '/upload': {
+        // Handle upload path
         target: 'http://localhost:3000',
         secure: false,
-        changeOrigin: false,
       },
     },
   },
   module: {
     rules: [
-      // All files with a '.ts' or '.tsx' extension will be handled by 'ts-loader'.
-      { test: /\.tsx?$/, loader: 'ts-loader' },
-      // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-      { test: /\.js$/, loader: 'source-map-loader', exclude: /node_modules/ },
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(ts|tsx|js|jsx)$/,
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env', '@babel/preset-react'],
+            presets: [
+              '@babel/preset-env',
+              '@babel/preset-react',
+              '@babel/preset-typescript',
+            ],
+            plugins: [['@babel/plugin-transform-runtime', { corejs: 3 }]],
           },
         },
         exclude: /node_modules/,
@@ -74,24 +68,20 @@ module.exports = {
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
-        test: /\.(png|svg|jpg)$/,
-        use: {
-          loader: 'url-loader',
-        },
-      },
-      {
-        test: /\.gif$/,
+        test: /\.(png|svg|jpg|gif)$/,
         use: ['file-loader'],
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
-        use: {
-          loader: 'file-loader',
-          options: {
-            name: '[name].[ext]',
-            outputPath: 'fonts/',
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'fonts/',
+            },
           },
-        },
+        ],
       },
     ],
   },
@@ -101,7 +91,6 @@ module.exports = {
     }),
   ],
   resolve: {
-    // Enable importing JS / JSX files without specifying their extension
-    extensions: ['', '.webpack.js', '.web.js', '.ts', '.tsx', '.js'],
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
   },
 };

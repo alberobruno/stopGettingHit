@@ -1,10 +1,19 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Button, TableRow, TableCell, IconButton } from "@carbon/react";
-import { TrashCan } from "@carbon/icons-react";
-import { deletePolicy } from "../state/store";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Button, TableRow, TableCell,  IconButton} from '@carbon/react';
+import { TrashCan } from '@carbon/icons-react';
+import { deletePolicy } from '../state/store';
 
-const Items = function (props) {
+// Define the props type for Items component
+type ItemsProps = {
+  data: {
+    id: string,
+    player1: string,
+    player2: string,
+  },
+};
+
+const Items: React.FC<ItemsProps> = (props) => {
   const { data } = props;
   const { id, player1, player2 } = data;
 
@@ -12,7 +21,7 @@ const Items = function (props) {
     try {
       await deletePolicy(id);
     } catch (e) {
-      console.error("Deletion Error...");
+      console.error('Deletion Error...');
       console.error(e);
     }
   };
@@ -24,7 +33,7 @@ const Items = function (props) {
       <TableCell>{player2}</TableCell>
       <TableCell>
         <Link
-          to={"/analysis"}
+          to={'/analysis'}
           state={{ data: data, id: id, player1: player1, player2: player2 }}
         >
           <Button kind="tertiary">Analyze Match</Button>
