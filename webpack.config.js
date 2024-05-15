@@ -25,19 +25,24 @@ module.exports = {
 
     proxy: {
       '/api': {
-        // Adjust if your API endpoint differs
+        // proxies any request starting with /api
         target: 'http://localhost:3000/',
         secure: false,
-        changeOrigin: true, // Might be required depending on your setup
+        changeOrigin: true,
       },
       '/assets': {
-        // Serve assets directory
+        // proxies any request starting with /assets
         target: 'http://localhost:3000/',
         secure: false,
       },
       '/upload': {
-        // Handle upload path
+        // proxies any request starting with /upload
         target: 'http://localhost:3000',
+        secure: false,
+      },
+      '**': {
+        // proxies any other requests
+        target: 'http://localhost:3000/',
         secure: false,
       },
     },

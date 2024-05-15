@@ -1,6 +1,6 @@
-import { createEntityStore, createEntityQuery } from "@datorama/akita";
-import axios from "axios";
-import { map } from "rxjs";
+import { createEntityStore, createEntityQuery } from '@datorama/akita';
+import axios from 'axios';
+import { map } from 'rxjs';
 
 // Create an initial state
 const initialState = {
@@ -11,8 +11,8 @@ const initialState = {
 
 // Create an entity store
 export const dataStore = createEntityStore(initialState, {
-  name: "data",
-  idKey: "id",
+  name: 'data',
+  idKey: 'id',
 });
 export const dataQuery = createEntityQuery(dataStore);
 
@@ -21,12 +21,12 @@ export const dataState$ = dataQuery
   .pipe(
     map((state) =>
       state.loading
-        ? "loading"
+        ? 'loading'
         : state.error
-        ? "error"
+        ? 'error'
         : state.ids.length
-        ? "success"
-        : "empty"
+        ? 'success'
+        : 'empty'
     )
   );
 
@@ -34,10 +34,10 @@ export const dataState$ = dataQuery
 export async function fetchData() {
   dataStore.update({ loading: true, error: false });
   try {
-    const response = await axios.get("/getMatches");
+    const response = await axios.get('/getMatches');
     dataStore.set(response.data);
   } catch (error) {
-    console.error("Error fetching data:", error);
+    console.error('Error fetching data:', error);
     dataStore.update({ error: true, loading: false });
   }
   dataStore.update({ loading: false });
@@ -52,7 +52,7 @@ export async function deletePolicy(id) {
     dataStore.remove(id);
     return response.data;
   } catch (error) {
-    console.error("Unable to delete policy:");
+    console.error('Unable to delete policy:');
     console.error(error);
   }
 }

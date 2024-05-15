@@ -14,8 +14,9 @@ client.on('connect', () => {
 });
 
 client.on('error', (err) => {
+  // TODO: Currently erroring out
   // console.log("Redis error: ", err);
-  console.log('Redis error 2');
+  // console.log('Redis error 2');
 });
 
 module.exports = client;
