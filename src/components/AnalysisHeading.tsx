@@ -1,9 +1,18 @@
 import React from "react";
 import { Button } from "@carbon/react";
+import {ToggleStyles} from "../types"
 
-const AnalysisHeading = function (props) {
-  const { id, toggleStyles, p1MainPlayer, setP1MainPlayer, player1, player2 } =
-    props;
+type AnalysisHeadingProps = {
+  id: string;
+  toggleStyles: ToggleStyles;
+  p1MainPlayer: boolean; 
+  setP1MainPlayer: (p1MainPlayer: boolean) => void;
+  player1: string;
+  player2: string;
+}
+
+const AnalysisHeading = function (props: AnalysisHeadingProps) {
+  const { id, toggleStyles, p1MainPlayer, setP1MainPlayer, player1, player2 } = props;
 
   const togglePlayer = () => {
     setP1MainPlayer(!p1MainPlayer);

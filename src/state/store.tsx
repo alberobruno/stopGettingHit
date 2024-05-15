@@ -16,19 +16,20 @@ export const dataStore = createEntityStore(initialState, {
 });
 export const dataQuery = createEntityQuery(dataStore);
 
-export const dataState$ = dataQuery
-  .select()
-  .pipe(
-    map((state) =>
-      state.loading
-        ? 'loading'
-        : state.error
-        ? 'error'
-        : state.ids.length
-        ? 'success'
-        : 'empty'
-    )
-  );
+export const dataState$ = dataQuery.select().pipe(
+  map((state) => {
+    if (state.loading) {
+      return 'loading';
+    }
+    if (state.error) {
+      return 'error';
+    }
+    if (state.data.length) {
+      return 'success';
+    }
+    return 'empty';
+  })
+);
 
 // Fetch data and update the store
 export async function fetchData() {
@@ -43,9 +44,9 @@ export async function fetchData() {
   dataStore.update({ loading: false });
 }
 
-export async function deletePolicy(id) {
+export async function deletePolicy(id: string) {
   try {
-    const response = axios.delete(`/delete/${id}`);
+    const response = await axios.delete(`/delete/${id}`);
 
     // Removing from the store doesn't rerender the list, updating does so it's needed here
     dataStore.update(id, response.data);

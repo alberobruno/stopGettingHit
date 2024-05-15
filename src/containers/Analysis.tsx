@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
-import analyzeMoves from "../stats/AnalyzeMoves";
-import Header from "../components/Header";
-import AnalysisHeading from "../components/AnalysisHeading";
-import AnalysisContent from "../components/AnalysisContent";
+import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import analyzeMoves from '../stats/AnalyzeMoves';
+import Header from '../components/Header';
+import AnalysisHeading from '../components/AnalysisHeading';
+import AnalysisContent from '../components/AnalysisContent';
 
-import { AnalysisContext } from "../contexts/AnalysisContext";
+import { AnalysisContext } from '../contexts/AnalysisContext';
 
 const Analysis = function () {
   //Playing with Analysis Context
@@ -20,8 +20,8 @@ const Analysis = function () {
   let playerMoves = [];
   let hasAnalysisBeenRun = false;
 
-  //This happens twice, not sure why
-  console.log("Analysis use location data: ", data);
+  //TODO: This happens twice, not sure why
+  console.log('Analysis use location data: ', data);
 
   if (!hasAnalysisBeenRun) {
     hasAnalysisBeenRun = true;
@@ -29,8 +29,8 @@ const Analysis = function () {
   }
 
   const toggleStyles = {
-    p1: { filter: p1MainPlayer ? "brightness(1)" : "brightness(0.4)" },
-    p2: { filter: p1MainPlayer ? "brightness(0.4)" : "brightness(1)" },
+    p1: { filter: p1MainPlayer ? 'brightness(1)' : 'brightness(0.4)' },
+    p2: { filter: p1MainPlayer ? 'brightness(0.4)' : 'brightness(1)' },
   };
 
   return (

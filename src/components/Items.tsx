@@ -7,17 +7,17 @@ import { deletePolicy } from '../state/store';
 // Define the props type for Items component
 type ItemsProps = {
   data: {
-    id: string,
-    player1: string,
-    player2: string,
+    id: string;
+    player1: string;
+    player2: string;
   },
+  key: number;
 };
 
-const Items: React.FC<ItemsProps> = (props) => {
-  const { data } = props;
+const Items = ({data}: ItemsProps) => {
   const { id, player1, player2 } = data;
 
-  const deleteMatch = async () => {
+  const deleteMatch = async (): Promise<void> => {
     try {
       await deletePolicy(id);
     } catch (e) {
@@ -43,7 +43,7 @@ const Items: React.FC<ItemsProps> = (props) => {
         <IconButton
           renderIcon={TrashCan}
           iconDescription={`Delete Match ${id}`}
-          onClick={() => deleteMatch()}
+          onClick={deleteMatch}
           hasIconOnly
           label={`Delete Match ${id}`}
         />

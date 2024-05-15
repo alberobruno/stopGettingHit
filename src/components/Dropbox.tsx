@@ -2,6 +2,15 @@ import React, { useState } from 'react';
 import { Button, FileUploader } from '@carbon/react';
 import axios from 'axios';
 
+type SlpFile = {
+  lastmodified: number;
+  name: string;
+  size: number;
+  type: string;
+  webkitRelativePath: string;
+};
+
+//TODO: Only works in firefox
 const Dropbox = function () {
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [invalidFileType, setInvalidFileType] = useState(false);
@@ -9,7 +18,9 @@ const Dropbox = function () {
   console.log('isLoading: ', isLoading);
   const handleFileChange = (e) => {
     const newFiles = Array.from(e.target.files);
-    const validFiles = newFiles.filter((file) => file.name.slice(-3) === 'slp');
+    const validFiles = newFiles.filter((file: SlpFile) => {
+      return file.name.slice(-3) === 'slp';
+    });
     const invalidFiles = newFiles.length !== validFiles.length;
     setInvalidFileType(invalidFiles);
     setUploadedFiles(validFiles);
@@ -37,8 +48,6 @@ const Dropbox = function () {
       }
     }
   };
-
-  // const reloadPage = () => window.location.reload();
 
   return (
     <div className="dropbox">
