@@ -1,103 +1,101 @@
-const webpack = require("webpack");
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const webpack = require('webpack');
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: "./src/index.js",
+  entry: './src/index.tsx',
   output: {
-    path: path.join(__dirname, "/dist"),
-    filename: "index_bundle.js",
+    path: path.join(__dirname, '/dist'),
+    filename: 'index_bundle.js',
   },
-  devtool: "eval-source-map",
-  mode: "development",
+  devtool: 'eval-source-map',
+  mode: 'development',
   devServer: {
-    host: "localhost",
+    host: 'localhost',
     port: 8080,
-    // enable HMR on the devServer
-    hot: true,
-    // fallback to root for other urls
-    historyApiFallback: true,
+    hot: true, // Enable HMR on the devServer
+    historyApiFallback: true, // Fallback to root for other urls
 
     static: {
-      // match the output path
-      directory: path.resolve(__dirname, "dist"),
-      // match the output 'publicPath'
-      publicPath: "/",
+      directory: path.resolve(__dirname, 'dist'),
+      publicPath: '/',
     },
 
-    headers: { "Access-Control-Allow-Origin": "*" },
-    /**
-     * proxy is required in order to make api calls to
-     * express server while using hot-reload webpack server
-     * routes api fetch requests from localhost:8080/api/* (webpack dev server)
-     * to localhost:3000/api/* (where our Express server is running)
-     */
+    headers: { 'Access-Control-Allow-Origin': '*' },
+
     proxy: {
-      "/": {
-        target: "http://localhost:3000/",
+      '/api': {
+        // proxies any request starting with /api
+        target: 'http://localhost:3000/',
+        secure: false,
+        changeOrigin: true,
+      },
+      '/assets': {
+        // proxies any request starting with /assets
+        target: 'http://localhost:3000/',
         secure: false,
       },
-      "/assets/**": {
-        target: "http://localhost:3000/",
+      '/upload': {
+        // proxies any request starting with /upload
+        target: 'http://localhost:3000',
         secure: false,
-        changeOrigin: false,
       },
-      "/upload": {
-        target: "http://localhost:3000",
+      '**': {
+        // proxies any other requests
+        target: 'http://localhost:3000/',
         secure: false,
-        changeOrigin: false,
       },
     },
   },
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(ts|tsx|js|jsx)$/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
-            presets: ["@babel/preset-env", "@babel/preset-react"],
+            presets: [
+              '@babel/preset-env',
+              '@babel/preset-react',
+              '@babel/preset-typescript',
+            ],
+            plugins: [['@babel/plugin-transform-runtime', { corejs: 3 }]],
           },
         },
         exclude: /node_modules/,
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.scss$/,
-        use: ["style-loader", "css-loader", "sass-loader"],
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
-        test: /\.(png|svg|jpg)$/,
-        use: {
-          loader: "url-loader",
-        },
-      },
-      {
-        test: /\.gif$/,
-        use: ["file-loader"],
+        test: /\.(png|svg|jpg|gif)$/,
+        use: ['file-loader'],
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
-        use: {
-          loader: "file-loader",
-          options: {
-            name: "[name].[ext]",
-            outputPath: "fonts/",
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'fonts/',
+            },
           },
-        },
+        ],
       },
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./src/index.html",
+      template: './src/index.html',
     }),
   ],
   resolve: {
-    // Enable importing JS / JSX files without specifying their extension
-    extensions: [".js", ".jsx"],
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
   },
 };

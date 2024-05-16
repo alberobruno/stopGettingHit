@@ -1,20 +1,27 @@
-import React from "react";
-import axios from "axios";
-import { Link } from "react-router-dom";
-import { Button, TableRow, TableCell, IconButton } from "@carbon/react";
-import { TrashCan } from "@carbon/icons-react";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Button, TableRow, TableCell,  IconButton} from '@carbon/react';
+import { TrashCan } from '@carbon/icons-react';
+import { deletePolicy } from '../state/store';
 
-const Items = function (props) {
-  const { data, setData } = props;
+// Define the props type for Items component
+type ItemsProps = {
+  data: {
+    id: string;
+    player1: string;
+    player2: string;
+  },
+  key: number;
+};
+
+const Items = ({data}: ItemsProps) => {
   const { id, player1, player2 } = data;
 
-  const deleteMatch = async () => {
+  const deleteMatch = async (): Promise<void> => {
     try {
-      await axios.delete(`/delete/${id}`);
-      const axiosGet = await axios.get("/getMatches");
-      setData(axiosGet.data);
+      await deletePolicy(id);
     } catch (e) {
-      console.error("Deletion Error...");
+      console.error('Deletion Error...');
       console.error(e);
     }
   };
@@ -26,7 +33,7 @@ const Items = function (props) {
       <TableCell>{player2}</TableCell>
       <TableCell>
         <Link
-          to={"/analysis"}
+          to={'/analysis'}
           state={{ data: data, id: id, player1: player1, player2: player2 }}
         >
           <Button kind="tertiary">Analyze Match</Button>
@@ -36,8 +43,9 @@ const Items = function (props) {
         <IconButton
           renderIcon={TrashCan}
           iconDescription={`Delete Match ${id}`}
-          onClick={() => deleteMatch()}
+          onClick={deleteMatch}
           hasIconOnly
+          label={`Delete Match ${id}`}
         />
       </TableCell>
     </TableRow>
