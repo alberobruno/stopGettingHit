@@ -1,18 +1,17 @@
 //----------Initial Setup----------
-const path = require("path");
-const fs = require("fs");
-const fsPromises = require("fs").promises;
+import path from 'path';
+import { promises as fsPromises } from 'fs';
 
 //----------Clear Uploads Folder----------
-const del = async () => {
+const clearFolders = async () => {
   try {
     // Find all files in the folder
-    console.log("Clearing previous files...");
+    console.log('Clearing previous files...');
     const paths = [
-      path.resolve(__dirname, "./uploads/"),
-      path.resolve(__dirname, "./uploadsOutput/"),
+      path.resolve(__dirname, './uploads/'),
+      path.resolve(__dirname, './uploadsOutput/'),
     ];
-    for (let filePath of paths) {
+    for (const filePath of paths) {
       const files = await fsPromises.readdir(filePath);
       for (const file of files) {
         // console.log("Getting here");
@@ -28,5 +27,5 @@ const del = async () => {
   }
 };
 
-//----------Export----------
-module.exports = { del };
+//----------Default Export----------
+export default clearFolders;

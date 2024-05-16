@@ -1,16 +1,20 @@
 //----------Initial Setup----------
-const controller = {};
-const path = require("path");
-const fs = require("fs");
-const formidable = require("formidable");
-const { execSync } = require("child_process");
-const clearFolders = require("./clearFolders");
+import path from 'path';
+import fs from 'fs';
+import formidable from 'formidable';
+import { execSync } from 'child_process';
+import clearFolders from './clearFolders';
 
+interface Controller {
+  add?: (req, res, next) => void;
+}
+
+const controller: Controller = {};
 //----------File Upload----------
 controller.add = async (req, res, next) => {
   try {
     //Create an instance of the form object
-    let form = new formidable.IncomingForm();
+    const form = new formidable.IncomingForm();
 
     //Process the file upload in Node
     form.parse(req, function (error, fields, file) {
@@ -18,20 +22,21 @@ controller.add = async (req, res, next) => {
         return next({
           log: `uploadSLP.add: ${error}`,
           status: 500,
-          message: { err: "An error occurred while parsing the form." },
+          message: { err: 'An error occurred while parsing the form.' },
         });
       }
-      let filepath = file.myFiles.filepath;
-      let outputpath = path.resolve(__dirname, "./uploadsOutput/");
-      let newpath = path.resolve(__dirname, "./uploads/");
-      clearFolders.del();
-      newpath += "/" + file.myFiles.originalFilename;
+      const filepath = file.myFiles.filepath;
+      const outputpath = path.resolve(__dirname, './uploadsOutput/');
+      console.log('Output path: ', outputpath);
+      let newpath = path.resolve(__dirname, './uploads/');
+      clearFolders();
+      newpath += '/' + file.myFiles.originalFilename;
 
       //Copy the uploaded file to a custom folder
       fs.rename(filepath, newpath, function () {
-        console.log("File Upload Success!");
+        console.log('File Upload Success!');
         //Run data parser
-        execSync("npm run getData");
+        execSync('npm run getData.ts');
         next();
       });
     });
@@ -59,4 +64,4 @@ controller.add = async (req, res, next) => {
 // };
 
 //----------Export----------
-module.exports = controller;
+export default controller;

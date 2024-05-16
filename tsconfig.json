@@ -1,10 +1,14 @@
 {
   "compilerOptions": {
+    "moduleResolution": "node",
     "outDir": "./built",
+    "rootDir": "./src",
     "allowJs": true,
     "jsx": "react",
     "target": "es5",
-    "lib": ["dom", "ES2015"]  
+    "lib": ["dom", "ES2015"],
+    "noImplicitAny": false,
+    "esModuleInterop": true
   },
   "include": ["./src/**/*"]
 }

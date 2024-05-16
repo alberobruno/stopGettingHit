@@ -1,7 +1,7 @@
 //----------Initial Setup----------
-const express = require('express');
-const dbControllers = require('./dbControllers');
-const uploadSLP = require('./uploadSLP');
+import express from 'express';
+import dbControllers from './dbControllers';
+import uploadSLP from './uploadSLP';
 const router = express.Router();
 
 //----------Routers to Controllers----------
@@ -21,9 +21,9 @@ router.delete('/delete/:id', dbControllers.deleteMatches, (req, res) =>
   res.status(200).json({})
 );
 
-router.delete('/test-redis', dbControllers.redis, (req, res) =>
-  res.status(200).json({})
-);
+// router.delete('/test-redis', dbControllers.redis, (req, res) =>
+//   res.status(200).json({})
+// );
 
 //----------Export----------
-module.exports = router;
+export default router;
