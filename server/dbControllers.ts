@@ -50,7 +50,6 @@ const controller = {
       console.log('Trying to get matches...');
       const query = 'SELECT * FROM matches';
       const result = await db.query(query);
-      console.log('Result: ', result.rows[0]);
       res.locals.matchData = result.rows;
       next();
     } catch (err) {
@@ -72,8 +71,8 @@ const controller = {
       const newMatch = JSON.parse(
         fs.readFileSync(path.resolve(outputDir, uploadedGames[0])).toString()
       );
-      const player1 = newMatch.settings.players[0].displayName;
-      const player2 = newMatch.settings.players[1].displayName;
+      const player1 = newMatch.settings.players[0].displayName || 'Player 1';
+      const player2 = newMatch.settings.players[1].displayName || 'Player 2';
       const query = `INSERT INTO matches (player1, player2, data)
     VALUES ('${player1}', '${player2}', '${JSON.stringify(newMatch)}');`;
       await db.query(query);

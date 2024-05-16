@@ -6,7 +6,7 @@
   "scripts": {
     "start": "webpack-dev-server --mode development --open --hot",
     "build": "webpack --mode production",
-    "getData": "node server/getData",
+    "getData": "node server/scripts/getData",
     "upload": "node server/upload",
     "dev": "npx concurrently \"npx cross-env NODE_ENV=development webpack-dev-server --open --hot --progress --color \" \"npx nodemon server/server.ts\""
   },
@@ -24,7 +24,7 @@
     "@ibm/plex": "^6.3.0",
     "@ngneat/elf": "^2.4.0",
     "@ngneat/use-observable": "^1.0.0",
-    "@slippi/slippi-js": "^6.2.1",
+    "@slippi/slippi-js": "6.2.1",
     "@types/lodash": "^4.14.202",
     "async": "^3.2.4",
     "axios": "^0.27.2",

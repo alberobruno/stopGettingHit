@@ -36,7 +36,7 @@ controller.add = async (req, res, next) => {
       fs.rename(filepath, newpath, function () {
         console.log('File Upload Success!');
         //Run data parser
-        execSync('npm run getData.ts');
+        execSync('npm run getData');
         next();
       });
     });

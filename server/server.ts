@@ -1,8 +1,8 @@
 //----------Initial Setup----------
 // import path from 'path';
 import express, { ErrorRequestHandler } from 'express';
-import redisClient from './redisClient';
 import router from './router';
+// import redisClient from './redisClient';
 
 // const bodyParser = require('body-parser');
 import cors from 'cors';
@@ -11,15 +11,15 @@ const app = express();
 const PORT = 3000;
 
 // //----------Redis----------
-async function initializeRedis() {
-  try {
-    const reply = await redisClient.set('key', 'value');
-    console.log('Redis set response:', reply);
-  } catch (err) {
-    console.error('Redis Initialization error:', err);
-  }
-}
-initializeRedis();
+// async function initializeRedis() {
+//   try {
+//     const reply = await redisClient.set('key', 'value');
+//     console.log('Redis set response:', reply);
+//   } catch (err) {
+//     console.error('Redis Initialization error:', err);
+//   }
+// }
+// initializeRedis();
 
 //----------Middleware----------
 app.use(express.json());

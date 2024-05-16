@@ -1,22 +1,23 @@
+/* eslint-disable no-undef */
 //Run command in terminal:
 //npm run getData
-import { SlippiGame } from '@slippi/slippi-js';
-// import { moves } from "@slippi/slippi-js";
-import path from 'path';
-import fs from 'fs';
-// import createGitkeep from "./createGitkeep";
+const { SlippiGame } = require('@slippi/slippi-js');
+// const { moves } = require("@slippi/slippi-js");
+const path = require('path');
+const fs = require('fs');
+// const createGitkeep = require("./createGitkeep");
 
-const rawData = {};
+let rawData = {};
 
-const uploadDir = path.resolve(__dirname, './uploads/');
-const outputDir = path.resolve(__dirname, './uploadsOutput/');
+const uploadDir = path.resolve(__dirname, '../uploads/');
+const outputDir = path.resolve(__dirname, '../uploadsOutput/');
 const uploadedGames = fs.readdirSync(uploadDir);
 
 console.log('Uploaded Games: ', uploadedGames);
 
 // Currently looks at only game one in uploads dir
 // const firstGame = uploadedGames[0];
-for (const uploadedGame of uploadedGames) {
+for (let uploadedGame of uploadedGames) {
   const game = new SlippiGame(path.resolve(uploadDir, uploadedGame));
 
   // Get game settings – stage, characters, etc
