@@ -23,29 +23,33 @@ module.exports = {
 
     headers: { 'Access-Control-Allow-Origin': '*' },
 
-    proxy: {
-      '/api': {
+    proxy: [
+      {
         // proxies any request starting with /api
+        context: '/api',
         target: 'http://localhost:3000/',
         secure: false,
         changeOrigin: true,
       },
-      '/assets': {
+      {
         // proxies any request starting with /assets
+        context: '/assets',
         target: 'http://localhost:3000/',
         secure: false,
       },
-      '/upload': {
+      {
         // proxies any request starting with /upload
+        context: '/upload',
         target: 'http://localhost:3000',
         secure: false,
       },
-      '**': {
+      {
         // proxies any other requests
+        context: '**',
         target: 'http://localhost:3000/',
         secure: false,
       },
-    },
+    ],
   },
   module: {
     rules: [
